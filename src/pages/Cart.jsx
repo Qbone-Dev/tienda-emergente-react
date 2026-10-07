@@ -2,7 +2,7 @@
 import { Link } from 'react-router-dom'
 import { useCart } from '../context/CartContext'
 import { money, FREE_SHIPPING_FROM } from '../services/cart'
-import { imageUrl } from '../services/images'
+import LazyImage from '../components/LazyImage'
 
 export default function Cart() {
   const { lines, totals, setQty, remove } = useCart()
@@ -23,7 +23,7 @@ export default function Cart() {
         <ul className="cart-lines">
           {lines.map((l) => (
             <li key={l.id}>
-              <img src={imageUrl(l.images[0], 160)} alt="" width="80" height="80" />
+              <LazyImage seed={l.images[0]} alt="" sizes="80px" className="thumb" />
               <div className="grow">
                 <Link to={`/producto/${l.id}`}>{l.name}</Link>
                 <div className="muted small">{money(l.price)} c/u</div>
