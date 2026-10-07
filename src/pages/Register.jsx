@@ -3,6 +3,7 @@ import { useState } from 'react'
 import { useLocation, useNavigate } from 'react-router-dom'
 import { register, verifyEmail } from '../services/auth'
 import { useAuth } from '../context/AuthContext'
+import { claimGuestOrders } from '../services/orders'
 
 export default function Register() {
   const { signIn } = useAuth()
@@ -28,7 +29,9 @@ export default function Register() {
     e.preventDefault()
     setError('')
     try {
-      signIn(verifyEmail(pending.email, code))
+      const user = verifyEmail(pending.email, code)
+      claimGuestOrders(user.email, user.id)
+      signIn(user)
       navigate(from, { replace: true })
     } catch (err) {
       setError(err.message)

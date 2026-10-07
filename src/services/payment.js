@@ -1,6 +1,7 @@
 // US-05 Checkout / Pago con pasarela simulada.
 // La tarjeta se valida en el navegador y su número nunca se guarda (solo los últimos 4 dígitos).
-import { createOrder } from './orders'
+import { createOrder, getOrder } from './orders'
+import { load, save } from './storage'
 
 export function luhnValid(number) {
   const digits = String(number).replace(/\D/g, '')
@@ -34,10 +35,22 @@ export function validateCard({ name, number, expiry, cvv }, today = new Date()) 
 
 const wait = (ms) => new Promise((resolve) => setTimeout(resolve, ms))
 
-export async function processPayment({ amount, card, order }) {
+// BUG-01: cada intento de pago lleva una llave de idempotencia. Si el mismo checkout se envía dos
+// veces (doble clic, regresar y volver a pagar), se devuelve el pedido ya creado en lugar de cobrar otra vez.
+const PAYMENTS_KEY = 'te.payments'
+
+export async function processPayment({ amount, card, order, idempotencyKey }) {
+  const previous = load(PAYMENTS_KEY, {})[idempotencyKey]
+  if (previous) return getOrder(previous)
+
   await wait(800)
   const digits = card.number.replace(/\D/g, '')
   // Tarjeta de prueba que siempre se rechaza, para probar el manejo de errores.
   if (digits === '4000000000000002') throw new Error('El banco rechazó el pago. Intenta con otra tarjeta.')
-  return createOrder({ ...order, total: amount, cardLast4: digits.slice(-4) })
+
+  const again = load(PAYMENTS_KEY, {})
+  if (again[idempotencyKey]) return getOrder(again[idempotencyKey])
+  const created = createOrder({ ...order, total: amount, cardLast4: digits.slice(-4) })
+  save(PAYMENTS_KEY, { ...again, [idempotencyKey]: created.number })
+  return created
 }
