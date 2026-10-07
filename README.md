@@ -17,7 +17,7 @@ Contiene lo comprometido en los **Sprints 1 y 2** del Product Backlog.
 | 1 | US-04 | Carrito persistente con IVA y envío recalculados | `#/carrito` |
 | 1 | US-05 | Checkout con validación de tarjeta y número de pedido | `#/checkout` |
 | 2 | BUG-01 | Regresar durante el pago conserva datos y no duplica cargos | `#/checkout?paso=pago` |
-| 2 | T-01 | Ícono del carrito con contraste 15.4:1 y área táctil de 48 px | encabezado |
+| 2 | T-01 | Ícono del carrito con contraste 13.9:1 y área táctil de 48 px | encabezado |
 | 2 | T-02 | Imágenes con carga diferida, `srcset` y marcador de posición | catálogo |
 | 2 | US-15 | Compra como invitado e invitación a crear cuenta | `#/checkout` sin sesión |
 | 2 | US-06 | Búsqueda tolerante a errores con filtros de precio, marca y categoría | `#/buscar?q=audifnos` |

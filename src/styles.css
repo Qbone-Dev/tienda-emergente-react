@@ -43,7 +43,7 @@ button:disabled { cursor: not-allowed; opacity: .5; }
 .link { background: none; border: 0; color: var(--brand); padding: 0; text-decoration: underline; }
 .link.danger { color: var(--danger); }
 
-/* T-01: ícono del carrito. Texto #1d2327 sobre blanco = 15.4:1; contador blanco sobre #b4380d = 5.9:1 */
+/* T-01: ícono del carrito. #1d2327 sobre #eef0ee = 13.9:1 (antes 1.8:1); contador blanco sobre #b4380d = 6.0:1 */
 .cart-icon { position: relative; display: inline-grid; place-items: center; width: 48px; height: 48px;
   border-radius: 50%; color: var(--text); background: #eef0ee; }
 .cart-icon:hover { background: #e2e6e3; }
