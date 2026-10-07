@@ -10,23 +10,23 @@ Estados: ✅ terminado · 🔜 planeado.
 
 | ID | Elemento | Pts | Estado | Código | Commit |
 |---|---|---|---|---|---|
-| US-01 | Registro y login | 5 | ✅ | [auth.js](src/services/auth.js), [Login.jsx](src/pages/Login.jsx), [Register.jsx](src/pages/Register.jsx) | `260a62a` |
-| US-02 | Catálogo / Navegación | 8 | ✅ | [Catalog.jsx](src/pages/Catalog.jsx), [api.js](src/services/api.js) | `82ffc26` |
-| US-03 | Detalle de producto | 5 | ✅ | [ProductDetail.jsx](src/pages/ProductDetail.jsx), [Gallery.jsx](src/components/Gallery.jsx) | `80deac2` |
-| US-04 | Carrito de compras | 5 | ✅ | [CartContext.jsx](src/context/CartContext.jsx), [cart.js](src/services/cart.js), [Cart.jsx](src/pages/Cart.jsx) | `699fc4a` |
-| US-05 | Checkout / Pago | 8 | ✅ | [payment.js](src/services/payment.js), [Checkout.jsx](src/pages/Checkout.jsx) | `f4f20a4` |
+| US-01 | Registro y login | 5 | ✅ | [auth.js](src/services/auth.js), [Login.jsx](src/pages/Login.jsx), [Register.jsx](src/pages/Register.jsx) | `34b107d` |
+| US-02 | Catálogo / Navegación | 8 | ✅ | [Catalog.jsx](src/pages/Catalog.jsx), [api.js](src/services/api.js) | `e3ea756` |
+| US-03 | Detalle de producto | 5 | ✅ | [ProductDetail.jsx](src/pages/ProductDetail.jsx), [Gallery.jsx](src/components/Gallery.jsx) | `43d111d` |
+| US-04 | Carrito de compras | 5 | ✅ | [CartContext.jsx](src/context/CartContext.jsx), [cart.js](src/services/cart.js), [Cart.jsx](src/pages/Cart.jsx) | `089c4a3` |
+| US-05 | Checkout / Pago | 8 | ✅ | [payment.js](src/services/payment.js), [Checkout.jsx](src/pages/Checkout.jsx) | `4d38e0d` |
 
 ## Sprint 2 · 12/10/2026 al 16/10/2026 · 24 pts · 122 h
 
 | ID | Elemento | Pts | Estado | Código | Commit |
 |---|---|---|---|---|---|
-| BUG-01 | Error de "regresar" en el pago | 2 | ✅ | [Checkout.jsx](src/pages/Checkout.jsx), [payment.js](src/services/payment.js) | `baf5128` |
-| T-01 | Visibilidad del ícono del carrito | 1 | ✅ | [Header.jsx](src/components/Header.jsx) | `86a7363` |
-| T-02 | Optimizar carga de imágenes | 3 | ✅ | [LazyImage.jsx](src/components/LazyImage.jsx), [images.js](src/services/images.js) | `86a7363` |
-| US-15 | Checkout como invitado | 5 | ✅ | [Checkout.jsx](src/pages/Checkout.jsx), [orders.js](src/services/orders.js) | `baf5128` |
-| US-06 | Búsqueda y filtros | 5 | ✅ | [search.js](src/services/search.js), [Search.jsx](src/pages/Search.jsx) | `0c37fcf` |
-| US-07 | Historial y seguimiento de pedidos | 5 | ✅ | [Orders.jsx](src/pages/Orders.jsx), [OrderConfirmation.jsx](src/pages/OrderConfirmation.jsx) | `4bef573` |
-| US-08 | Calificar y reseñar productos | 3 | ✅ | [reviews.js](src/services/reviews.js), [ReviewForm.jsx](src/components/ReviewForm.jsx) | `0c37fcf` |
+| BUG-01 | Error de "regresar" en el pago | 2 | ✅ | [Checkout.jsx](src/pages/Checkout.jsx), [payment.js](src/services/payment.js) | `1497a0e` |
+| T-01 | Visibilidad del ícono del carrito | 1 | ✅ | [Header.jsx](src/components/Header.jsx) | `77658c5` |
+| T-02 | Optimizar carga de imágenes | 3 | ✅ | [LazyImage.jsx](src/components/LazyImage.jsx), [images.js](src/services/images.js) | `77658c5` |
+| US-15 | Checkout como invitado | 5 | ✅ | [Checkout.jsx](src/pages/Checkout.jsx), [orders.js](src/services/orders.js) | `1497a0e` |
+| US-06 | Búsqueda y filtros | 5 | ✅ | [search.js](src/services/search.js), [Search.jsx](src/pages/Search.jsx) | `99ee6b2` |
+| US-07 | Historial y seguimiento de pedidos | 5 | ✅ | [Orders.jsx](src/pages/Orders.jsx), [OrderConfirmation.jsx](src/pages/OrderConfirmation.jsx) | `c0856ea` |
+| US-08 | Calificar y reseñar productos | 3 | ✅ | [reviews.js](src/services/reviews.js), [ReviewForm.jsx](src/components/ReviewForm.jsx) | `99ee6b2` |
 
 ## Sprint 3 · 19/10/2026 al 23/10/2026 · 21 pts · 109 h
 
