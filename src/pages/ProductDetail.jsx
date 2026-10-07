@@ -1,15 +1,21 @@
 // US-03 Detalle de producto: galería con zoom, existencias visibles y reseñas visibles.
+// US-08 Reseñas de compradores verificados.
 import { useEffect, useState } from 'react'
 import { Link, useParams } from 'react-router-dom'
 import { getProduct } from '../services/api'
 import { money } from '../services/cart'
 import { useCart } from '../context/CartContext'
+import { useAuth } from '../context/AuthContext'
+import { averageRating, getReviews } from '../services/reviews'
+import ReviewForm from '../components/ReviewForm'
 import Gallery from '../components/Gallery'
 import Stars from '../components/Stars'
 
 export default function ProductDetail() {
   const { id } = useParams()
   const { add } = useCart()
+  const { user } = useAuth()
+  const [, setVersion] = useState(0)
   const [product, setProduct] = useState(undefined)
   const [qty, setQty] = useState(1)
   const [added, setAdded] = useState(false)
@@ -21,8 +27,8 @@ export default function ProductDetail() {
   if (product === undefined) return <p className="container muted">Cargando…</p>
   if (product === null) return <p className="container">Producto no encontrado. <Link to="/">Volver al catálogo</Link></p>
 
-  const reviews = product.reviews
-  const avg = reviews.length ? reviews.reduce((s, r) => s + r.rating, 0) / reviews.length : 0
+  const reviews = getReviews(product)
+  const avg = averageRating(reviews)
 
   return (
     <section className="container detail">
@@ -49,6 +55,7 @@ export default function ProductDetail() {
         {added && <p className="notice">Agregado. <Link to="/carrito">Ver carrito</Link></p>}
 
         <h2>Reseñas</h2>
+        <ReviewForm user={user} productId={product.id} onAdded={() => setVersion((v) => v + 1)} />
         {reviews.length === 0 && <p className="muted">Este producto aún no tiene reseñas.</p>}
         <ul className="reviews">
           {reviews.map((r, i) => (
