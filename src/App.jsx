@@ -8,6 +8,8 @@ import Checkout from './pages/Checkout'
 import OrderConfirmation from './pages/OrderConfirmation'
 import Login from './pages/Login'
 import Register from './pages/Register'
+import Search from './pages/Search'
+import Orders from './pages/Orders'
 
 export default function App() {
   return (
@@ -18,7 +20,10 @@ export default function App() {
           <Route path="/" element={<Catalog />} />
           <Route path="/producto/:id" element={<ProductDetail />} />
           <Route path="/carrito" element={<Cart />} />
-          <Route path="/checkout" element={<RequireAuth><Checkout /></RequireAuth>} />
+          {/* US-15: el checkout ya no exige sesión (compra como invitado) */}
+          <Route path="/checkout" element={<Checkout />} />
+          <Route path="/buscar" element={<Search />} />
+          <Route path="/mis-pedidos" element={<RequireAuth><Orders /></RequireAuth>} />
           <Route path="/pedido/:number" element={<OrderConfirmation />} />
           <Route path="/login" element={<Login />} />
           <Route path="/registro" element={<Register />} />
