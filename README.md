@@ -3,7 +3,7 @@
 Avance de desarrollo de la app **Tienda Emergente** (Proyecto II, UDG Virtual) construido con React 19 y Vite.
 Contiene lo comprometido en los **Sprints 1 y 2** del Product Backlog.
 
-- **App funcionando:** https://TU-USUARIO.github.io/tienda-emergente-react/
+- **App funcionando:** https://Qbone-Dev.github.io/tienda-emergente-react/
 - **Backlog y trazabilidad:** [BACKLOG.md](BACKLOG.md)
 - **Versiones por sprint:** etiquetas [`sprint-1`](../../tree/sprint-1) y [`sprint-2`](../../tree/sprint-2)
 
