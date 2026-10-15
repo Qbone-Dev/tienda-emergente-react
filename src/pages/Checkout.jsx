@@ -51,7 +51,9 @@ export default function Checkout() {
   const [paying, setPaying] = useState(false)
   const completed = useRef(false)
 
-  useEffect(() => saveSession({ shipping, idempotencyKey }), [shipping, idempotencyKey])
+  useEffect(() => {
+    saveSession({ shipping, idempotencyKey })
+  }, [shipping, idempotencyKey])
 
   if (lines.length === 0 && !completed.current) return <Navigate to="/carrito" replace />
   if (step === 'pago' && !shipping.street) return <Navigate to="/checkout" replace />

@@ -87,6 +87,8 @@ function CouponForm() {
   )
 }
 
+const articles = (n) => `${n} ${n === 1 ? 'artículo' : 'artículos'}`
+
 export function Summary({ totals, coupon, children }) {
   return (
     <aside className="summary">
@@ -94,11 +96,11 @@ export function Summary({ totals, coupon, children }) {
       <dl>
         {totals.discount > 0 && (
           <>
-            <dt>Productos ({totals.items} artículos)</dt><dd>{money(totals.gross)}</dd>
+            <dt>Productos ({articles(totals.items)})</dt><dd>{money(totals.gross)}</dd>
             <dt className="discount">Descuento {coupon?.code}</dt><dd className="discount">−{money(totals.discount)}</dd>
           </>
         )}
-        <dt>Subtotal{totals.discount > 0 ? ' sin IVA' : ` (${totals.items} artículos)`}</dt><dd>{money(totals.subtotal)}</dd>
+        <dt>Subtotal{totals.discount > 0 ? ' sin IVA' : ` (${articles(totals.items)})`}</dt><dd>{money(totals.subtotal)}</dd>
         <dt>IVA 16 %</dt><dd>{money(totals.iva)}</dd>
         <dt>Envío</dt><dd>{totals.shipping === 0 ? (coupon?.type === 'shipping' ? `Gratis (${coupon.code})` : 'Gratis') : money(totals.shipping)}</dd>
         <dt className="total">Total</dt><dd className="total">{money(totals.total)}</dd>

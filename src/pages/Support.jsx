@@ -20,8 +20,12 @@ export default function Support() {
   currentTopic.current = topic
   const open = isOpen()
 
-  useEffect(() => setMessages(getConversation(user.id, topic)), [user.id, topic])
-  useEffect(() => end.current?.scrollIntoView({ block: 'nearest' }), [messages, typing])
+  useEffect(() => {
+    setMessages(getConversation(user.id, topic))
+  }, [user.id, topic])
+  useEffect(() => {
+    end.current?.scrollIntoView({ block: 'nearest' })
+  }, [messages, typing])
 
   const submit = (e) => {
     e.preventDefault()

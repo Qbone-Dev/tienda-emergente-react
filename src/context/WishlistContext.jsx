@@ -9,7 +9,9 @@ export function WishlistProvider({ children }) {
   const { user } = useAuth()
   const [ids, setIds] = useState([])
 
-  useEffect(() => setIds(user ? getWishlist(user.id) : []), [user])
+  useEffect(() => {
+    setIds(user ? getWishlist(user.id) : [])
+  }, [user])
 
   const value = {
     ids,

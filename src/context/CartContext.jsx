@@ -16,8 +16,12 @@ export function CartProvider({ children }) {
   const [couponCode, setCouponCode] = useState(() => load(COUPON_KEY, null))
   const [couponNotice, setCouponNotice] = useState('')
 
-  useEffect(() => save(CART_KEY, entries), [entries])
-  useEffect(() => save(COUPON_KEY, couponCode), [couponCode])
+  useEffect(() => {
+    save(CART_KEY, entries)
+  }, [entries])
+  useEffect(() => {
+    save(COUPON_KEY, couponCode)
+  }, [couponCode])
 
   const lines = useMemo(
     () =>
