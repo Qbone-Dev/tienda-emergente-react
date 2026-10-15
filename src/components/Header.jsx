@@ -28,7 +28,7 @@ export default function Header() {
           {user ? (
             <>
               <NavLink to="/mis-pedidos">Mis pedidos</NavLink>
-              <span className="hello">Hola, {user.name.split(' ')[0]}</span>
+              <NavLink to="/perfil" className="hello">Hola, {user.name.split(' ')[0]}</NavLink>
               <button className="link" onClick={signOut}>Salir</button>
             </>
           ) : (

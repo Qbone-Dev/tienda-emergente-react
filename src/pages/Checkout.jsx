@@ -3,11 +3,13 @@
 //   de paso; los datos de envío se conservan en sessionStorage, el carrito se vacía únicamente cuando el
 //   pago se confirma y la llave de idempotencia evita cargos duplicados.
 // US-15: si no hay sesión, se puede comprar como invitado solo con correo y dirección.
+// US-10: con sesión, se precarga la dirección predeterminada y se puede elegir otra guardada.
 import { useEffect, useRef, useState } from 'react'
 import { Link, Navigate, useNavigate, useSearchParams } from 'react-router-dom'
 import { useAuth } from '../context/AuthContext'
 import { useCart } from '../context/CartContext'
 import { isValidEmail } from '../services/auth'
+import { getAddresses, getDefaultAddress } from '../services/addresses'
 import { processPayment, validateCard } from '../services/payment'
 import { Summary } from './Cart'
 
@@ -37,7 +39,12 @@ export default function Checkout() {
   const step = params.get('paso') === 'pago' ? 'pago' : 'envio'
 
   const [session] = useState(loadSession)
-  const [shipping, setShipping] = useState({ ...emptyShipping, ...session.shipping })
+  const [shipping, setShipping] = useState(() => {
+    if (session.shipping) return { ...emptyShipping, ...session.shipping }
+    const saved = user ? getDefaultAddress(user.id) : null
+    return saved ? { ...emptyShipping, street: saved.street, city: saved.city, zip: saved.zip } : emptyShipping
+  })
+  const savedAddresses = user ? getAddresses(user.id) : []
   const [idempotencyKey] = useState(() => session.idempotencyKey ?? crypto.randomUUID())
   const [card, setCard] = useState({ name: '', number: '', expiry: '', cvv: '' })
   const [errors, setErrors] = useState({})
@@ -124,6 +131,22 @@ export default function Checkout() {
               </>
             )}
             <h2>Dirección de envío</h2>
+            {savedAddresses.length > 0 && (
+              <label>
+                Mis direcciones
+                <select
+                  value={savedAddresses.find((a) => a.street === shipping.street && a.zip === shipping.zip)?.id ?? ''}
+                  onChange={(e) => {
+                    const a = savedAddresses.find((x) => x.id === e.target.value)
+                    setShipping(a ? { ...shipping, street: a.street, city: a.city, zip: a.zip } : { ...shipping, street: '', city: '', zip: '' })
+                  }}>
+                  {savedAddresses.map((a) => (
+                    <option key={a.id} value={a.id}>{a.alias}{a.isDefault ? ' (predeterminada)' : ''} · {a.street}</option>
+                  ))}
+                  <option value="">Otra dirección…</option>
+                </select>
+              </label>
+            )}
             {field('street', 'Calle y número', { autoComplete: 'street-address' })}
             {field('city', 'Ciudad', { autoComplete: 'address-level2' })}
             {field('zip', 'Código postal', { pattern: '\\d{5}', inputMode: 'numeric', autoComplete: 'postal-code', title: '5 dígitos' })}

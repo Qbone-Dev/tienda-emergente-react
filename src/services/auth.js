@@ -82,3 +82,15 @@ export function loginWithProvider(provider) {
   }
   return publicUser(user)
 }
+
+// US-10 Edición de los datos del perfil.
+export function updateProfile(userId, { name }) {
+  if (!name.trim()) throw new Error('Escribe tu nombre.')
+  const users = getUsers()
+  const user = users.find((u) => u.id === userId)
+  if (user) {
+    user.name = name.trim()
+    save(USERS_KEY, users)
+  }
+  return name.trim()
+}
