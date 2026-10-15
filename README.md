@@ -1,11 +1,11 @@
 # Tienda Emergente · React
 
 Avance de desarrollo de la app **Tienda Emergente** (Proyecto II, UDG Virtual) construido con React 19 y Vite.
-Contiene lo comprometido en los **Sprints 1 y 2** del Product Backlog.
+Contiene lo comprometido en los **Sprints 1, 2 y 3** del Product Backlog.
 
 - **App funcionando:** https://Qbone-Dev.github.io/tienda-emergente-react/
 - **Backlog y trazabilidad:** [BACKLOG.md](BACKLOG.md)
-- **Versiones por sprint:** etiquetas [`sprint-1`](../../tree/sprint-1) y [`sprint-2`](../../tree/sprint-2)
+- **Versiones por sprint:** etiquetas [`sprint-1`](../../tree/sprint-1), [`sprint-2`](../../tree/sprint-2) y [`sprint-3`](../../tree/sprint-3)
 
 ## Qué incluye
 
@@ -23,12 +23,17 @@ Contiene lo comprometido en los **Sprints 1 y 2** del Product Backlog.
 | 2 | US-06 | Búsqueda tolerante a errores con filtros de precio, marca y categoría | `#/buscar?q=audifnos` |
 | 2 | US-07 | Historial de pedidos y seguimiento con número de guía | `#/mis-pedidos` |
 | 2 | US-08 | Reseñas de 1 a 5 estrellas solo de compras verificadas, con filtro de lenguaje | detalle de un producto comprado |
+| 3 | US-09 | Centro de notificaciones, permiso opt-in del navegador y preferencias | `#/notificaciones` |
+| 3 | US-10 | Perfil editable y direcciones; la predeterminada se precarga en el pago | `#/perfil` |
+| 3 | US-11 | Favoritos desde catálogo y detalle; mover al carrito | `#/favoritos` |
+| 3 | US-12 | Cupones con vigencia y monto mínimo (`BIENVENIDA10`, `OTONO150`, `ENVIOGRATIS`) | `#/carrito` |
+| 3 | US-13 | Chat de soporte en horario laboral, una conversación por pedido | `#/soporte` |
 
 Tarjeta de prueba: `4242 4242 4242 4242`, cualquier fecha futura y CVV `123`.
 La tarjeta `4000 0000 0000 0002` simula un pago rechazado.
 
 > Esta versión no tiene backend: los datos se guardan en el navegador (`localStorage`) y la API, el
-> inicio de sesión social, la pasarela y el correo están simulados en `src/services/`. Su integración
+> inicio de sesión social, la pasarela, el correo, el envío push desde servidor y los asesores del chat están simulados en `src/services/`. Su integración
 > real es el elemento **T-05** del Sprint 4. Las fotos son imágenes de muestra de Lorem Picsum.
 
 ## Ejecutar en local
@@ -38,7 +43,7 @@ Requiere Node.js 20 o superior.
 ```bash
 npm install
 npm run dev      # http://localhost:5173
-npm test         # 17 pruebas (Vitest)
+npm test         # 31 pruebas (Vitest)
 npm run build    # genera dist/
 ```
 

@@ -1,8 +1,10 @@
 # Product Backlog y trazabilidad
 
-Backlog actualizado después de la revisión de los Sprints 1 y 2: **21 elementos, 95 puntos, 562 h esperadas**.
-El cambio respecto a la versión anterior (20 elementos, 90 pts, 542 h) es el elemento **T-05**, que se agregó
-para terminar las integraciones que en los Sprints 1 y 2 quedaron simuladas.
+Backlog actualizado después de la revisión del Sprint 3: **21 elementos, 98 puntos, 568 h esperadas**.
+
+- Revisión de los Sprints 1 y 2: se agregó **T-05** (integración de servicios reales) para terminar lo que quedó simulado.
+- Revisión del Sprint 3: T-05 crece de 5 a 8 pts (20 h → 26 h) porque también incluye el envío push con FCM
+  (US-09) y la conexión del chat con un servicio de asesores (US-13).
 
 Estados: ✅ terminado · 🔜 planeado.
 
@@ -30,24 +32,24 @@ Estados: ✅ terminado · 🔜 planeado.
 
 ## Sprint 3 · 19/10/2026 al 23/10/2026 · 21 pts · 109 h
 
-| ID | Elemento | Pts | Estado | Depende de |
-|---|---|---|---|---|
-| US-09 | Notificaciones push | 5 | 🔜 | US-07 |
-| US-10 | Perfil y direcciones | 3 | 🔜 | US-01 |
-| US-11 | Lista de deseos | 3 | 🔜 | US-01, US-03 |
-| US-12 | Cupones y promociones | 5 | 🔜 | US-04, US-05 |
-| US-13 | Chat de soporte | 5 | 🔜 | US-01 |
+| ID | Elemento | Pts | Estado | Código | Commit |
+|---|---|---|---|---|---|
+| US-09 | Notificaciones push | 5 | ✅ | [notifications.js](src/services/notifications.js), [Notifications.jsx](src/pages/Notifications.jsx) | `c111444` |
+| US-10 | Perfil y direcciones | 3 | ✅ | [addresses.js](src/services/addresses.js), [Profile.jsx](src/pages/Profile.jsx) | `06526b5` |
+| US-11 | Lista de deseos | 3 | ✅ | [WishButton.jsx](src/components/WishButton.jsx), [Wishlist.jsx](src/pages/Wishlist.jsx) | `2794957` |
+| US-12 | Cupones y promociones | 5 | ✅ | [coupons.js](src/services/coupons.js), [Cart.jsx](src/pages/Cart.jsx) | `82076f3` |
+| US-13 | Chat de soporte | 5 | ✅ | [chat.js](src/services/chat.js), [Support.jsx](src/pages/Support.jsx) | `b47157e` |
 
-## Sprint 4 · 26/10/2026 al 30/10/2026 · 19 pts · 109 h
+## Sprint 4 · 26/10/2026 al 30/10/2026 · 22 pts · 115 h
 
 | ID | Elemento | Pts | Estado | Depende de |
 |---|---|---|---|---|
 | US-14 | Panel de administración de inventario | 8 | 🔜 | US-02 |
-| T-05 | Integración de servicios reales (OAuth, pasarela en sandbox, correo y paquetería) | 5 | 🔜 | US-01, US-05, US-07 |
+| T-05 | Integración de servicios reales (OAuth, pasarela en sandbox, correo, paquetería, push FCM y chat con asesores) | 8 | 🔜 | US-01, US-05, US-07, US-09, US-13 |
 | T-03 | Pruebas de regresión y rendimiento | 3 | 🔜 | US-14, T-05 |
 | T-04 | Publicación en tiendas | 3 | 🔜 | T-03 |
 
 ## Pruebas
 
-`npm test` ejecuta [tests/sprint1.test.js](tests/sprint1.test.js) (7 pruebas) y
-[tests/sprint2.test.js](tests/sprint2.test.js) (10 pruebas).
+`npm test` ejecuta [tests/sprint1.test.js](tests/sprint1.test.js) (7 pruebas),
+[tests/sprint2.test.js](tests/sprint2.test.js) (10 pruebas) y [tests/sprint3.test.js](tests/sprint3.test.js) (14 pruebas).
