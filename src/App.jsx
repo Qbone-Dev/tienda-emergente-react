@@ -1,4 +1,4 @@
-import { Route, Routes } from 'react-router-dom'
+import { Link, Route, Routes } from 'react-router-dom'
 import Header from './components/Header'
 import RequireAuth from './components/RequireAuth'
 import Catalog from './pages/Catalog'
@@ -13,6 +13,7 @@ import Orders from './pages/Orders'
 import Profile from './pages/Profile'
 import Wishlist from './pages/Wishlist'
 import Notifications from './pages/Notifications'
+import Support from './pages/Support'
 
 export default function App() {
   return (
@@ -29,6 +30,7 @@ export default function App() {
           <Route path="/mis-pedidos" element={<RequireAuth><Orders /></RequireAuth>} />
           <Route path="/favoritos" element={<RequireAuth><Wishlist /></RequireAuth>} />
           <Route path="/notificaciones" element={<RequireAuth><Notifications /></RequireAuth>} />
+          <Route path="/soporte" element={<RequireAuth><Support /></RequireAuth>} />
           <Route path="/perfil" element={<RequireAuth><Profile /></RequireAuth>} />
           <Route path="/pedido/:number" element={<OrderConfirmation />} />
           <Route path="/login" element={<Login />} />
@@ -37,7 +39,7 @@ export default function App() {
         </Routes>
       </main>
       <footer className="footer container muted small">
-        Tienda Emergente · Proyecto II · Avance de desarrollo con React
+        Tienda Emergente · Proyecto II · Avance de desarrollo con React · <Link to="/soporte">Soporte</Link>
       </footer>
     </>
   )

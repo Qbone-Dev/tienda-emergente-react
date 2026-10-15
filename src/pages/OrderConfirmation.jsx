@@ -68,6 +68,9 @@ export default function OrderConfirmation() {
           <Link to="/registro" state={{ email: order.email }} className="btn">Crear cuenta</Link>
         </div>
       )}
+      {user && order.userId === user.id && (
+        <p><Link to={`/soporte?pedido=${order.number}`}>¿Necesitas ayuda con este pedido? Escríbenos</Link></p>
+      )}
       <p><Link to={user ? '/mis-pedidos' : '/'}>{user ? 'Ver todos mis pedidos' : 'Seguir comprando'}</Link></p>
     </section>
   )
