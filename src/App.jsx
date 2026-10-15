@@ -11,6 +11,7 @@ import Register from './pages/Register'
 import Search from './pages/Search'
 import Orders from './pages/Orders'
 import Profile from './pages/Profile'
+import Wishlist from './pages/Wishlist'
 
 export default function App() {
   return (
@@ -25,6 +26,7 @@ export default function App() {
           <Route path="/checkout" element={<Checkout />} />
           <Route path="/buscar" element={<Search />} />
           <Route path="/mis-pedidos" element={<RequireAuth><Orders /></RequireAuth>} />
+          <Route path="/favoritos" element={<RequireAuth><Wishlist /></RequireAuth>} />
           <Route path="/perfil" element={<RequireAuth><Profile /></RequireAuth>} />
           <Route path="/pedido/:number" element={<OrderConfirmation />} />
           <Route path="/login" element={<Login />} />

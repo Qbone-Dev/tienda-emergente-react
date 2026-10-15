@@ -10,6 +10,7 @@ import { averageRating, getReviews } from '../services/reviews'
 import ReviewForm from '../components/ReviewForm'
 import Gallery from '../components/Gallery'
 import Stars from '../components/Stars'
+import WishButton from '../components/WishButton'
 
 export default function ProductDetail() {
   const { id } = useParams()
@@ -52,6 +53,7 @@ export default function ProductDetail() {
             <button className="btn" onClick={() => { add(product.id, qty); setAdded(true) }}>Agregar al carrito</button>
           </div>
         )}
+        <WishButton productId={product.id} name={product.name} variant="text" />
         {added && <p className="notice">Agregado. <Link to="/carrito">Ver carrito</Link></p>}
 
         <h2>Reseñas</h2>

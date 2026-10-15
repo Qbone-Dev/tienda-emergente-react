@@ -27,6 +27,7 @@ export default function Header() {
           <NavLink to="/" end>Catálogo</NavLink>
           {user ? (
             <>
+              <NavLink to="/favoritos">Favoritos</NavLink>
               <NavLink to="/mis-pedidos">Mis pedidos</NavLink>
               <NavLink to="/perfil" className="hello">Hola, {user.name.split(' ')[0]}</NavLink>
               <button className="link" onClick={signOut}>Salir</button>
