@@ -54,6 +54,9 @@ export default function OrderConfirmation() {
         ))}
       </ul>
       <p>Total pagado: <strong>{money(order.total)}</strong> con tarjeta terminación {order.cardLast4}.</p>
+      {order.coupon && (
+        <p className="muted small">Incluye un descuento de {money(order.coupon.discount)} con el cupón {order.coupon.code}.</p>
+      )}
       <p className="muted small">
         Envío a {order.address.street}, {order.address.city}, C.P. {order.address.zip}
       </p>

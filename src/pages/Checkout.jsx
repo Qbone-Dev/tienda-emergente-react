@@ -31,7 +31,7 @@ function saveSession(value) {
 
 export default function Checkout() {
   const { user } = useAuth()
-  const { lines, totals, clear } = useCart()
+  const { lines, totals, coupon, clear } = useCart()
   const navigate = useNavigate()
   const [params, setParams] = useSearchParams()
   const step = params.get('paso') === 'pago' ? 'pago' : 'envio'
@@ -79,6 +79,7 @@ export default function Checkout() {
           email,
           customer: user?.name ?? shipping.name,
           items: lines.map(({ id, name, price, qty }) => ({ id, name, price, qty })),
+          coupon: coupon ? { code: coupon.code, discount: totals.discount } : null,
           address: { street: shipping.street, city: shipping.city, zip: shipping.zip },
         },
       })
@@ -155,7 +156,7 @@ export default function Checkout() {
             </div>
           </form>
         )}
-        <Summary totals={totals} />
+        <Summary totals={totals} coupon={coupon} />
       </div>
     </section>
   )
