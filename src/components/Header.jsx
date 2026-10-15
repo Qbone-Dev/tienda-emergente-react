@@ -2,10 +2,12 @@ import { useState } from 'react'
 import { Link, NavLink, useNavigate } from 'react-router-dom'
 import { useAuth } from '../context/AuthContext'
 import { useCart } from '../context/CartContext'
+import { useNotifications } from '../context/NotificationsContext'
 
 export default function Header() {
   const { user, signOut } = useAuth()
   const { totals } = useCart()
+  const { unread } = useNotifications()
   const navigate = useNavigate()
   const [q, setQ] = useState('')
 
@@ -34,6 +36,15 @@ export default function Header() {
             </>
           ) : (
             <NavLink to="/login">Iniciar sesión</NavLink>
+          )}
+          {/* US-09: campana con avisos sin leer */}
+          {user && (
+            <Link to="/notificaciones" className="cart-icon" aria-label={`Notificaciones, ${unread} sin leer`}>
+              <svg viewBox="0 0 24 24" width="24" height="24" aria-hidden="true">
+                <path fill="currentColor" d="M12 22a2.5 2.5 0 0 0 2.45-2h-4.9A2.5 2.5 0 0 0 12 22Zm7-6V11a7 7 0 0 0-5.5-6.84V3a1.5 1.5 0 0 0-3 0v1.16A7 7 0 0 0 5 11v5l-2 2v1h18v-1l-2-2Zm-2 1H7v-6a5 5 0 0 1 10 0v6Z" />
+              </svg>
+              {unread > 0 && <span className="cart-count">{unread}</span>}
+            </Link>
           )}
           {/* T-01: ícono con contraste ≥ 4.5:1 y área táctil de 48 px (CA: ≥ 44 px) */}
           <Link to="/carrito" className="cart-icon" aria-label={`Carrito, ${totals.items} artículos`}>
