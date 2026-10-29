@@ -1,14 +1,15 @@
 {
   "name": "tienda-emergente-react",
   "private": true,
-  "version": "0.2.0",
+  "version": "1.0.0-rc.1",
   "type": "module",
-  "description": "App Tienda Emergente - avances de los Sprints 1 y 2 desarrollados con React (Proyecto II, UDG Virtual)",
+  "description": "App Tienda Emergente desarrollada con React en 4 sprints (Proyecto II, UDG Virtual)",
   "scripts": {
     "dev": "vite",
     "build": "vite build",
-    "preview": "vite preview",
-    "test": "vitest run"
+    "preview": "vite preview --port 4173 --strictPort",
+    "test": "vitest run",
+    "e2e": "node e2e/regresion.mjs"
   },
   "dependencies": {
     "react": "^19.3.0",
@@ -17,6 +18,7 @@
   },
   "devDependencies": {
     "@vitejs/plugin-react": "^6.1.2",
+    "playwright-core": "^1.64.1",
     "vite": "^8.3.3",
     "vitest": "^5.0.3"
   }
