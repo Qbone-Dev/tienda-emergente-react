@@ -6,7 +6,11 @@ import { CartProvider } from './context/CartContext'
 import { WishlistProvider } from './context/WishlistContext'
 import { NotificationsProvider } from './context/NotificationsContext'
 import App from './App'
+import { registerServiceWorker, startMonitoring } from './services/monitor'
 import './styles.css'
+
+startMonitoring()
+registerServiceWorker()
 
 // HashRouter: GitHub Pages solo sirve archivos estáticos, así que las rutas viajan después de "#".
 createRoot(document.getElementById('root')).render(

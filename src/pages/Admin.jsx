@@ -5,6 +5,7 @@ import { CATEGORIES } from '../data/products'
 import { getAllProducts, saveProduct, setActive, setStock } from '../services/inventory'
 import { money } from '../services/cart'
 import useInventoryVersion from '../hooks/useInventory'
+import { clearErrors, getErrors } from '../services/monitor'
 
 const LOW_STOCK = 5
 const empty = { id: null, name: '', brand: '', category: CATEGORIES[0], price: '', stock: '', description: '' }
@@ -17,6 +18,7 @@ export default function Admin() {
   const [errors, setErrors] = useState({})
   const [stockDraft, setStockDraft] = useState({})
   const [notice, setNotice] = useState('')
+  const [errorsLog, setErrorsLog] = useState(getErrors)
 
   const shown = products.filter((p) =>
     `${p.name} ${p.brand} ${p.category}`.toLowerCase().includes(filter.trim().toLowerCase()))
@@ -65,7 +67,17 @@ export default function Admin() {
         <div><strong>{active.reduce((s, p) => s + p.stock, 0)}</strong><span>piezas en existencia</span></div>
         <div className={low.length ? 'warn' : ''}><strong>{low.length}</strong><span>con menos de {LOW_STOCK} piezas</span></div>
         <div><strong>{products.length - active.length}</strong><span>dados de baja</span></div>
+        <div className={errorsLog.length ? 'warn' : ''}><strong>{errorsLog.length}</strong><span>errores registrados</span></div>
       </div>
+      {errorsLog.length > 0 && (
+        <details className="panel">
+          <summary>Errores registrados en este navegador (T-04)</summary>
+          <ul className="small">
+            {errorsLog.map((e, i) => <li key={i}>{new Date(e.date).toLocaleString('es-MX')} · {e.message} <span className="muted">{e.source}</span></li>)}
+          </ul>
+          <button className="link" onClick={() => { clearErrors(); setErrorsLog([]) }}>Borrar registro</button>
+        </details>
+      )}
 
       {notice && <p className="notice" role="status">{notice}</p>}
 
