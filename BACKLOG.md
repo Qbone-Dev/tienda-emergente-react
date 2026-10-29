@@ -1,12 +1,15 @@
 # Product Backlog y trazabilidad
 
-Backlog actualizado después de la revisión del Sprint 3: **21 elementos, 98 puntos, 568 h esperadas**.
+Backlog final al 29/10/2026 (día 4 del Sprint 4): **21 elementos, 98 puntos, 568 h esperadas**.
+Terminados: **18 elementos, 84 puntos (86 %)**. Parciales: T-03 y T-04. No iniciado: T-05.
 
 - Revisión de los Sprints 1 y 2: se agregó **T-05** (integración de servicios reales) para terminar lo que quedó simulado.
 - Revisión del Sprint 3: T-05 crece de 5 a 8 pts (20 h → 26 h) porque también incluye el envío push con FCM
   (US-09) y la conexión del chat con un servicio de asesores (US-13).
+- Sprint 4: T-05 no se pudo iniciar (no se obtuvieron las credenciales de los proveedores) y la publicación en
+  tiendas se sustituyó por una app web instalable. Lo pendiente pasa a la versión 1.1 (ver al final).
 
-Estados: ✅ terminado · 🔜 planeado.
+Estados: ✅ terminado · 🟡 parcial · ⛔ no iniciado · 🔜 planeado.
 
 ## Sprint 1 · 05/10/2026 al 09/10/2026 · 31 pts · 222 h
 
@@ -42,14 +45,23 @@ Estados: ✅ terminado · 🔜 planeado.
 
 ## Sprint 4 · 26/10/2026 al 30/10/2026 · 22 pts · 115 h
 
-| ID | Elemento | Pts | Estado | Depende de |
-|---|---|---|---|---|
-| US-14 | Panel de administración de inventario | 8 | 🔜 | US-02 |
-| T-05 | Integración de servicios reales (OAuth, pasarela en sandbox, correo, paquetería, push FCM y chat con asesores) | 8 | 🔜 | US-01, US-05, US-07, US-09, US-13 |
-| T-03 | Pruebas de regresión y rendimiento | 3 | 🔜 | US-14, T-05 |
-| T-04 | Publicación en tiendas | 3 | 🔜 | T-03 |
+| ID | Elemento | Pts | Estado | Código | Commit |
+|---|---|---|---|---|---|
+| US-14 | Panel de administración de inventario | 8 | ✅ | [inventory.js](src/services/inventory.js), [Admin.jsx](src/pages/Admin.jsx) | `dc9c7b9` |
+| T-05 | Integración de servicios reales | 8 | ⛔ | Sin credenciales de pasarela, OAuth, FCM, correo ni paquetería | — |
+| T-03 | Pruebas de regresión y rendimiento | 3 | 🟡 | [regresion.mjs](e2e/regresion.mjs) 19/19 · [rendimiento.mjs](e2e/rendimiento.mjs): imagen en 3G 4.1 s (meta 1.5 s) | `2830041` |
+| T-04 | Publicación | 3 | 🟡 | App web instalable y sin conexión ([sw.js](public/sw.js)); tiendas pendientes | `098143b` |
+
+## Pendiente para la versión 1.1
+
+| ID | Elemento | Motivo |
+|---|---|---|
+| T-05 | Integración de servicios reales | Requiere contratos y credenciales de los proveedores. |
+| T-04 | Publicación en App Store y Google Play | Requiere cuentas de desarrollador y el SDK de Android/Xcode. |
+| T-03 | Imagen principal < 1.5 s en 3G | Requiere servir las imágenes desde un CDN propio y dividir el código de la app. |
 
 ## Pruebas
 
 `npm test` ejecuta [tests/sprint1.test.js](tests/sprint1.test.js) (7 pruebas),
-[tests/sprint2.test.js](tests/sprint2.test.js) (10 pruebas) y [tests/sprint3.test.js](tests/sprint3.test.js) (14 pruebas).
+[tests/sprint2.test.js](tests/sprint2.test.js) (10 pruebas), [tests/sprint3.test.js](tests/sprint3.test.js) (14 pruebas)
+y [tests/sprint4.test.js](tests/sprint4.test.js) (6 pruebas). `npm run e2e` ejecuta la regresión de extremo a extremo (19 recorridos).

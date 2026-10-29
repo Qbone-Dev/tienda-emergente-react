@@ -1,11 +1,11 @@
 # Tienda Emergente · React
 
 Avance de desarrollo de la app **Tienda Emergente** (Proyecto II, UDG Virtual) construido con React 19 y Vite.
-Contiene lo comprometido en los **Sprints 1, 2 y 3** del Product Backlog.
+Versión **1.0** al cierre de los cuatro sprints del proyecto (estado al 29/10/2026 en [BACKLOG.md](BACKLOG.md)).
 
 - **App funcionando:** https://Qbone-Dev.github.io/tienda-emergente-react/
 - **Backlog y trazabilidad:** [BACKLOG.md](BACKLOG.md)
-- **Versiones por sprint:** etiquetas [`sprint-1`](../../tree/sprint-1), [`sprint-2`](../../tree/sprint-2) y [`sprint-3`](../../tree/sprint-3)
+- **Versiones por sprint:** etiquetas [`sprint-1`](../../tree/sprint-1), [`sprint-2`](../../tree/sprint-2) , [`sprint-3`](../../tree/sprint-3) y [`sprint-4`](../../tree/sprint-4)
 
 ## Qué incluye
 
@@ -28,13 +28,17 @@ Contiene lo comprometido en los **Sprints 1, 2 y 3** del Product Backlog.
 | 3 | US-11 | Favoritos desde catálogo y detalle; mover al carrito | `#/favoritos` |
 | 3 | US-12 | Cupones con vigencia y monto mínimo (`BIENVENIDA10`, `OTONO150`, `ENVIOGRATIS`) | `#/carrito` |
 | 3 | US-13 | Chat de soporte en horario laboral, una conversación por pedido | `#/soporte` |
+| 4 | US-14 | Panel de inventario: alta, edición, baja y existencias en vivo (solo administradores) | `#/admin` |
+| 4 | T-03 | Regresión de extremo a extremo y medición de rendimiento en 3G | `npm run e2e` |
+| 4 | T-04 | App instalable (manifiesto y service worker) y registro de errores | menú del navegador → Instalar |
 
 Tarjeta de prueba: `4242 4242 4242 4242`, cualquier fecha futura y CVV `123`.
 La tarjeta `4000 0000 0000 0002` simula un pago rechazado.
+Cuenta de administración de demostración: `admin@tiendaemergente.mx` / `Admin2026`.
 
 > Esta versión no tiene backend: los datos se guardan en el navegador (`localStorage`) y la API, el
 > inicio de sesión social, la pasarela, el correo, el envío push desde servidor y los asesores del chat están simulados en `src/services/`. Su integración
-> real es el elemento **T-05** del Sprint 4. Las fotos son imágenes de muestra de Lorem Picsum.
+> real (elemento **T-05**) queda para la versión 1.1. Las fotos son imágenes de muestra de Lorem Picsum.
 
 ## Ejecutar en local
 
@@ -43,8 +47,10 @@ Requiere Node.js 20 o superior.
 ```bash
 npm install
 npm run dev      # http://localhost:5173
-npm test         # 31 pruebas (Vitest)
+npm test         # 37 pruebas (Vitest)
 npm run build    # genera dist/
+npm run preview  # sirve dist/ en http://localhost:4173
+npm run e2e      # regresión en navegador (con preview encendido; usa Edge, BROWSER=chrome para Chrome)
 ```
 
 ## Estructura
