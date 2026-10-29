@@ -6,6 +6,7 @@ import { getProductSync } from '../services/api'
 import { computeTotals } from '../services/cart'
 import { validateCoupon } from '../services/coupons'
 import { load, save } from '../services/storage'
+import useInventoryVersion from '../hooks/useInventory'
 
 const CART_KEY = 'te.cart'
 const COUPON_KEY = 'te.coupon'
@@ -15,6 +16,7 @@ export function CartProvider({ children }) {
   const [entries, setEntries] = useState(() => load(CART_KEY, []))
   const [couponCode, setCouponCode] = useState(() => load(COUPON_KEY, null))
   const [couponNotice, setCouponNotice] = useState('')
+  const inventory = useInventoryVersion()
 
   useEffect(() => {
     save(CART_KEY, entries)
@@ -27,8 +29,10 @@ export function CartProvider({ children }) {
     () =>
       entries
         .map((e) => ({ ...getProductSync(e.id), qty: e.qty }))
-        .filter((l) => l.id),
-    [entries],
+        // US-14: un producto dado de baja ya no se puede comprar; se limita a las existencias actuales.
+        .filter((l) => l.id && l.active !== false && l.stock > 0)
+        .map((l) => ({ ...l, qty: Math.min(l.qty, l.stock) })),
+    [entries, inventory], // eslint-disable-line react-hooks/exhaustive-deps
   )
 
   const gross = lines.reduce((s, l) => s + l.price * l.qty, 0)

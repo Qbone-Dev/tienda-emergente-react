@@ -14,6 +14,8 @@ import Profile from './pages/Profile'
 import Wishlist from './pages/Wishlist'
 import Notifications from './pages/Notifications'
 import Support from './pages/Support'
+import Admin from './pages/Admin'
+import RequireAdmin from './components/RequireAdmin'
 
 export default function App() {
   return (
@@ -31,6 +33,7 @@ export default function App() {
           <Route path="/favoritos" element={<RequireAuth><Wishlist /></RequireAuth>} />
           <Route path="/notificaciones" element={<RequireAuth><Notifications /></RequireAuth>} />
           <Route path="/soporte" element={<RequireAuth><Support /></RequireAuth>} />
+          <Route path="/admin" element={<RequireAdmin><Admin /></RequireAdmin>} />
           <Route path="/perfil" element={<RequireAuth><Profile /></RequireAuth>} />
           <Route path="/pedido/:number" element={<OrderConfirmation />} />
           <Route path="/login" element={<Login />} />

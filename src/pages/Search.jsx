@@ -1,7 +1,9 @@
 // US-06 Búsqueda y filtros por palabra, precio, marca y categoría.
 import { useMemo } from 'react'
 import { useSearchParams } from 'react-router-dom'
-import { BRANDS, CATEGORIES, PRODUCTS } from '../data/products'
+import { CATEGORIES } from '../data/products'
+import { brandsOf, getActiveProducts } from '../services/inventory'
+import useInventoryVersion from '../hooks/useInventory'
 import { filterProducts } from '../services/search'
 import ProductCard from '../components/ProductCard'
 
@@ -15,12 +17,16 @@ export default function Search() {
     max: params.get('max') ?? '',
   }
 
+  const inventory = useInventoryVersion()
+  const products = useMemo(() => getActiveProducts(), [inventory])
+  const brands = useMemo(() => brandsOf(products), [products])
+
   const { results, ms } = useMemo(() => {
     const start = performance.now()
-    const results = filterProducts(PRODUCTS, filters)
+    const results = filterProducts(products, filters)
     return { results, ms: performance.now() - start }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [params])
+  }, [params, products])
 
   const update = (key, value) => {
     const next = new URLSearchParams(params)
@@ -45,7 +51,7 @@ export default function Search() {
           <label>Marca
             <select value={filters.brand} onChange={(e) => update('marca', e.target.value)}>
               <option value="">Todas</option>
-              {BRANDS.map((b) => <option key={b}>{b}</option>)}
+              {brands.map((b) => <option key={b}>{b}</option>)}
             </select>
           </label>
           <div className="row">

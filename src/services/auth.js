@@ -23,7 +23,22 @@ const randomHex = (n = 16) =>
   [...crypto.getRandomValues(new Uint8Array(n))].map((b) => b.toString(16).padStart(2, '0')).join('')
 
 const getUsers = () => load(USERS_KEY, [])
-const publicUser = ({ id, name, email, provider }) => ({ id, name, email, provider })
+const publicUser = ({ id, name, email, provider, role }) => ({ id, name, email, provider, role: role ?? 'cliente' })
+
+// US-14: cuenta de administrador de demostración (en producción los roles los asigna el backend, T-05).
+export const ADMIN_EMAIL = 'admin@tiendaemergente.mx'
+export const ADMIN_DEMO_PASSWORD = 'Admin2026'
+
+async function ensureDemoAdmin() {
+  const users = getUsers()
+  if (users.some((u) => u.email === ADMIN_EMAIL)) return
+  const salt = randomHex()
+  users.push({
+    id: 'u-admin', name: 'Administración', email: ADMIN_EMAIL, provider: 'correo', role: 'admin',
+    salt, passwordHash: await sha256(salt + ADMIN_DEMO_PASSWORD), verified: true,
+  })
+  save(USERS_KEY, users)
+}
 
 export async function register({ name, email, password }) {
   email = email.trim().toLowerCase()
@@ -62,6 +77,7 @@ export function verifyEmail(email, code) {
 }
 
 export async function login({ email, password }) {
+  if (email.trim().toLowerCase() === ADMIN_EMAIL) await ensureDemoAdmin()
   const user = getUsers().find((u) => u.email === email.trim().toLowerCase() && u.provider === 'correo')
   if (!user || user.passwordHash !== (await sha256(user.salt + password))) {
     throw new Error('Correo o contraseña incorrectos.')

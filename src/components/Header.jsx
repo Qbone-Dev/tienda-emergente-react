@@ -29,6 +29,7 @@ export default function Header() {
           <NavLink to="/" end>Catálogo</NavLink>
           {user ? (
             <>
+              {user.role === 'admin' && <NavLink to="/admin">Inventario</NavLink>}
               <NavLink to="/favoritos">Favoritos</NavLink>
               <NavLink to="/mis-pedidos">Mis pedidos</NavLink>
               <NavLink to="/perfil" className="hello">Hola, {user.name.split(' ')[0]}</NavLink>

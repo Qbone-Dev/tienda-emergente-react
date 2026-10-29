@@ -72,4 +72,3 @@ export const PRODUCTS = [
     'Rompecabezas de paisaje con póster de referencia.'),
 ]
 
-export const BRANDS = [...new Set(PRODUCTS.map((x) => x.brand))].sort()

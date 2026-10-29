@@ -5,11 +5,13 @@ import { useWishlist } from '../context/WishlistContext'
 import { getProductSync } from '../services/api'
 import { money } from '../services/cart'
 import LazyImage from '../components/LazyImage'
+import useInventoryVersion from '../hooks/useInventory'
 
 export default function Wishlist() {
   const { ids, remove } = useWishlist()
   const { add } = useCart()
-  const products = ids.map(getProductSync).filter(Boolean)
+  useInventoryVersion()
+  const products = ids.map(getProductSync).filter(Boolean).map((p) => (p.active === false ? { ...p, stock: 0 } : p))
 
   const moveToCart = (id) => {
     add(id, 1)

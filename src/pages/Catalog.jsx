@@ -4,6 +4,7 @@ import { useSearchParams } from 'react-router-dom'
 import { CATEGORIES } from '../data/products'
 import { getProducts } from '../services/api'
 import ProductCard from '../components/ProductCard'
+import useInventoryVersion from '../hooks/useInventory'
 import Pagination from '../components/Pagination'
 
 export default function Catalog() {
@@ -11,15 +12,15 @@ export default function Catalog() {
   const category = params.get('categoria') ?? 'Todas'
   const page = Number(params.get('pagina') ?? 1)
   const [data, setData] = useState(null)
+  const inventory = useInventoryVersion()
 
   useEffect(() => {
     let alive = true
-    setData(null)
     getProducts({ category, page }).then((res) => alive && setData(res))
     return () => {
       alive = false
     }
-  }, [category, page])
+  }, [category, page, inventory])
 
   const go = (next) => setParams({ categoria: next.category ?? category, pagina: String(next.page ?? 1) })
 

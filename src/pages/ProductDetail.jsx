@@ -11,6 +11,7 @@ import ReviewForm from '../components/ReviewForm'
 import Gallery from '../components/Gallery'
 import Stars from '../components/Stars'
 import WishButton from '../components/WishButton'
+import useInventoryVersion from '../hooks/useInventory'
 
 export default function ProductDetail() {
   const { id } = useParams()
@@ -18,12 +19,13 @@ export default function ProductDetail() {
   const { user } = useAuth()
   const [, setVersion] = useState(0)
   const [product, setProduct] = useState(undefined)
+  const inventory = useInventoryVersion()
   const [qty, setQty] = useState(1)
   const [added, setAdded] = useState(false)
 
   useEffect(() => {
     getProduct(id).then(setProduct)
-  }, [id])
+  }, [id, inventory])
 
   if (product === undefined) return <p className="container muted">Cargando…</p>
   if (product === null) return <p className="container">Producto no encontrado. <Link to="/">Volver al catálogo</Link></p>
