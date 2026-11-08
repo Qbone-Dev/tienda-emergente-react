@@ -1,7 +1,7 @@
 # Product Backlog y trazabilidad
 
-Backlog al 08/11/2026, después de la reunión de revisión: **24 elementos, 104 puntos, 581.5 h esperadas**.
-Terminados: **21 elementos, 90 puntos (87 %)**. Parciales: T-03 y T-04. No iniciado: T-05 (versión 1.1).
+Backlog al 08/11/2026, después de la reunión de revisión: **25 elementos, 106 puntos, 587.5 h esperadas**.
+Terminados: **21 elementos, 90 puntos (85 %)**. Parciales: T-03 y T-04. Para la versión 1.1: T-05 y T-09.
 
 - Revisión de los Sprints 1 y 2: se agregó **T-05** (integración de servicios reales) para terminar lo que quedó simulado.
 - Revisión del Sprint 3: T-05 crece de 5 a 8 pts (20 h → 26 h) porque también incluye el envío push con FCM
