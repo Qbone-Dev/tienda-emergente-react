@@ -6,7 +6,7 @@
 //
 // Variables: BASE (por defecto http://localhost:4173/), BROWSER (msedge | chrome),
 // E2E_ADMIN_PASSWORD (se lee también de .env.local). Sin contraseña se comprueba que el panel esté cerrado.
-import { existsSync, readFileSync } from 'node:fs'
+import { appendFileSync, existsSync, readFileSync } from 'node:fs'
 import { chromium } from 'playwright-core'
 
 if (existsSync('.env.local')) {
@@ -224,4 +224,14 @@ await browser.close()
 
 const passed = results.filter((r) => r.ok).length
 console.log(JSON.stringify({ base: BASE, date: new Date().toISOString(), passed, total: results.length, results }, null, 2))
+
+// En GitHub Actions: cada fallo como anotación y una tabla de resultados en el resumen de la ejecución.
+if (process.env.GITHUB_ACTIONS) {
+  const clean = (t) => String(t).replace(/[\r\n%]/g, ' ')
+  for (const r of results.filter((x) => !x.ok)) console.log(`::error title=${r.id} ${clean(r.name)}::${clean(r.detail)}`)
+  if (process.env.GITHUB_STEP_SUMMARY) {
+    const rows = results.map((r) => `| ${r.ok ? '✅' : '❌'} | ${r.id} | ${r.name} | ${String(r.detail).replace(/\|/g, '/')} |`)
+    appendFileSync(process.env.GITHUB_STEP_SUMMARY, [`### Regresión: ${passed} de ${results.length} recorridos aprobados`, '', '| | Elemento | Recorrido | Resultado |', '|---|---|---|---|', ...rows, ''].join('\n'))
+  }
+}
 process.exit(passed === results.length ? 0 : 1)
