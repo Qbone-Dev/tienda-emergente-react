@@ -1,6 +1,6 @@
 // US-01 Registro con validación de correo.
 import { useState } from 'react'
-import { useLocation, useNavigate } from 'react-router-dom'
+import { Link, useLocation, useNavigate } from 'react-router-dom'
 import { register, verifyEmail } from '../services/auth'
 import { useAuth } from '../context/AuthContext'
 import { claimGuestOrders } from '../services/orders'
@@ -66,6 +66,10 @@ export default function Register() {
           onChange={(e) => setForm({ ...form, password: e.target.value })} />
           <span className="muted small">Mínimo 8 caracteres, con letras y números.</span></label>
         {error && <p className="error" role="alert">{error}</p>}
+        <p className="muted small">
+          {/* M-05 */}
+          Al crear tu cuenta aceptas los <Link to="/terminos">Términos de uso</Link> y el <Link to="/privacidad">Aviso de privacidad</Link>.
+        </p>
         <button className="btn">Crear cuenta</button>
       </form>
     </section>

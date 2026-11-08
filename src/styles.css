@@ -262,3 +262,9 @@ input:focus, select:focus, textarea:focus, button:focus-visible, a:focus-visible
 .small-btn { padding: 6px 10px; min-height: 40px; }
 .admin-table .actions { white-space: nowrap; }
 .admin-table .actions .link + .link { margin-left: 12px; }
+
+/* M-05 aviso de privacidad y términos */
+.legal h2 { font-size: 1.05rem; margin-top: 1.4rem; }
+.legal ul { padding-left: 1.2rem; }
+.legal li { margin-bottom: 6px; }
+.footer a { color: var(--muted); }

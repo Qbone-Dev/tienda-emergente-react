@@ -16,6 +16,7 @@ import Notifications from './pages/Notifications'
 import Support from './pages/Support'
 import Admin from './pages/Admin'
 import RequireAdmin from './components/RequireAdmin'
+import { Privacy, Terms } from './pages/Legal'
 
 export default function App() {
   return (
@@ -38,11 +39,13 @@ export default function App() {
           <Route path="/pedido/:number" element={<OrderConfirmation />} />
           <Route path="/login" element={<Login />} />
           <Route path="/registro" element={<Register />} />
+          <Route path="/privacidad" element={<Privacy />} />
+          <Route path="/terminos" element={<Terms />} />
           <Route path="*" element={<p className="container">Página no encontrada.</p>} />
         </Routes>
       </main>
       <footer className="footer container muted small">
-        Tienda Emergente · Proyecto II · Avance de desarrollo con React · <Link to="/soporte">Soporte</Link>
+        Tienda Emergente · Proyecto II · Avance de desarrollo con React · <Link to="/soporte">Soporte</Link> · <Link to="/privacidad">Aviso de privacidad</Link> · <Link to="/terminos">Términos de uso</Link>
       </footer>
     </>
   )
