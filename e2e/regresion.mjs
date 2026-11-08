@@ -10,13 +10,12 @@ import { existsSync, readFileSync } from 'node:fs'
 import { chromium } from 'playwright-core'
 
 if (existsSync('.env.local')) {
-  for (const line of readFileSync('.env.local', 'utf8').split(/?
-/)) {
+  for (const line of readFileSync('.env.local', 'utf8').split(/\r?\n/)) {
     const m = /^([A-Z0-9_]+)=(.*)$/.exec(line.trim())
     if (m && process.env[m[1]] === undefined) process.env[m[1]] = m[2]
   }
 }
-const ADMIN_PASSWORD = process.env.E2E_ADMIN_PASSWORD
+const ADMIN_PASSWORD = process.env.E2E_ADMIN_PASSWORD || ''
 
 const BASE = process.env.BASE ?? 'http://localhost:4173/'
 const browser = await chromium.launch({ channel: process.env.BROWSER ?? 'msedge' })
@@ -67,11 +66,12 @@ await check('US-04', 'Carrito con totales', async () => {
 
 // ---------- Sprint 3 (cupón antes de pagar) ----------
 await check('US-12', 'Cupón con monto mínimo', async () => {
-  await page.getByLabel('¿Tienes un cupón?').fill('OTONO150')
+  // BIENVENIDA10 está vigente todo el trimestre; OTONO150 vence el 15/11 y haría fallar la prueba.
+  await page.getByLabel('¿Tienes un cupón?').fill('BIENVENIDA10')
   await page.getByRole('button', { name: 'Aplicar' }).click()
-  await page.getByText('−$150.00').waitFor()
-  assert((await text('.summary')).includes('$1,648.00'), 'total con descuento incorrecto')
-  return 'OTONO150: −$150, total $1,648.00'
+  await page.getByText('−$179.80').waitFor()
+  assert((await text('.summary')).includes('$1,618.20'), 'total con descuento incorrecto')
+  return 'BIENVENIDA10: −$179.80, total $1,618.20'
 })
 
 // ---------- Sprint 2 ----------
@@ -189,7 +189,7 @@ await check('US-14', ADMIN_PASSWORD ? 'Inventario: existencias en vivo' : 'M-03:
   await page.evaluate(() => localStorage.removeItem('te.session'))
   await go('#/login')
   await page.getByLabel('Correo').fill('admin@tiendaemergente.mx')
-  await page.getByLabel('Contraseña').fill(ADMIN_PASSWORD ?? 'cualquier-clave')
+  await page.getByLabel('Contraseña').fill(ADMIN_PASSWORD || 'cualquier-clave')
   await page.getByRole('button', { name: 'Entrar' }).click()
   if (!ADMIN_PASSWORD) {
     await page.getByText('no está habilitado').waitFor()

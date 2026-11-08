@@ -1,4 +1,4 @@
-# Publica la app en GitHub Pages en cada push a main.
+# Pruebas, regresión en navegador y publicación en GitHub Pages en cada push a main.
 # Requisito único: Settings > Pages > Source = "GitHub Actions".
 name: Deploy a GitHub Pages
 
@@ -27,12 +27,39 @@ jobs:
           cache: npm
       - run: npm ci
       - run: npm test
+      # M-03: la versión pública solo habilita el panel si existe el secreto ADMIN_PASSWORD_SHA256.
       - run: npm run build
+        env:
+          VITE_ADMIN_PASSWORD_SHA256: ${{ secrets.ADMIN_PASSWORD_SHA256 }}
       - uses: actions/upload-pages-artifact@v3
         with:
           path: dist
+
+  # M-07: los 19 recorridos de la regresión en Google Chrome sobre una compilación de prueba.
+  e2e:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci
+      - name: Contraseña de administración temporal (solo para esta ejecución)
+        run: |
+          PW=$(openssl rand -base64 18 | tr -d '/+=')
+          echo "::add-mask::$PW"
+          echo "E2E_ADMIN_PASSWORD=$PW" >> "$GITHUB_ENV"
+          echo "VITE_ADMIN_PASSWORD_SHA256=$(printf 'te-admin:%s' "$PW" | sha256sum | cut -d' ' -f1)" >> "$GITHUB_ENV"
+      - run: npm run build
+      - run: npx vite preview --port 4173 --strictPort &
+      - run: npx --yes wait-on@8 http://localhost:4173 --timeout 60000
+      - run: npm run e2e
+        env:
+          BROWSER: chrome
+
   deploy:
-    needs: build
+    needs: [build, e2e]
     runs-on: ubuntu-latest
     environment:
       name: github-pages
