@@ -1,13 +1,14 @@
 # Product Backlog y trazabilidad
 
-Backlog final al 29/10/2026 (día 4 del Sprint 4): **21 elementos, 98 puntos, 568 h esperadas**.
-Terminados: **18 elementos, 84 puntos (86 %)**. Parciales: T-03 y T-04. No iniciado: T-05.
+Backlog al 08/11/2026, después de la reunión de revisión: **24 elementos, 104 puntos, 581.5 h esperadas**.
+Terminados: **21 elementos, 90 puntos (87 %)**. Parciales: T-03 y T-04. No iniciado: T-05 (versión 1.1).
 
 - Revisión de los Sprints 1 y 2: se agregó **T-05** (integración de servicios reales) para terminar lo que quedó simulado.
 - Revisión del Sprint 3: T-05 crece de 5 a 8 pts (20 h → 26 h) porque también incluye el envío push con FCM
   (US-09) y la conexión del chat con un servicio de asesores (US-13).
 - Sprint 4: T-05 no se pudo iniciar (no se obtuvieron las credenciales de los proveedores) y la publicación en
   tiendas se sustituyó por una app web instalable. Lo pendiente pasa a la versión 1.1 (ver al final).
+- Reunión de revisión (04/11 y 08/11): las 12 propuestas M-01 a M-12 se agrupan en T-06, T-07, T-08 y T-09.
 
 Estados: ✅ terminado · 🟡 parcial · ⛔ no iniciado · 🔜 planeado.
 
@@ -52,16 +53,28 @@ Estados: ✅ terminado · 🟡 parcial · ⛔ no iniciado · 🔜 planeado.
 | T-03 | Pruebas de regresión y rendimiento | 3 | 🟡 | [regresion.mjs](e2e/regresion.mjs) 19/19 · [rendimiento.mjs](e2e/rendimiento.mjs): imagen en 3G 4.1 s (meta 1.5 s) | `2830041` |
 | T-04 | Publicación | 3 | 🟡 | App web instalable y sin conexión ([sw.js](public/sw.js)); tiendas pendientes | `098143b` |
 
-## Pendiente para la versión 1.1
+## Revisión previa a la liberación · 04/11/2026 al 13/11/2026 · 6 pts · 13.5 h
 
-| ID | Elemento | Motivo |
-|---|---|---|
-| T-05 | Integración de servicios reales | Requiere contratos y credenciales de los proveedores. |
-| T-04 | Publicación en App Store y Google Play | Requiere cuentas de desarrollador y el SDK de Android/Xcode. |
-| T-03 | Imagen principal < 1.5 s en 3G | Requiere servir las imágenes desde un CDN propio y dividir el código de la app. |
+| ID | Elemento | Propuestas | Pts | Estado | Commits |
+|---|---|---|---|---|---|
+| T-06 | Endurecimiento para la liberación | M-03 contraseña fuera del código · M-05 privacidad y términos · M-07 regresión en Actions · M-08 dependencias | 3 | ✅ | `d40a6bf` `2545e7e` `042b314` `1855821` |
+| T-07 | Documentación de liberación | M-09 licencia y versión 1.0.0 · M-10 manual de uso | 2 | ✅ | `8f533e5` · manual en [docs/MANUAL.md](docs/MANUAL.md) |
+| T-08 | Accesibilidad automatizada | M-11 axe-core en 16 pantallas: 1 problema grave encontrado y corregido | 1 | ✅ | `d249593` |
+| T-03 | Pruebas de regresión y rendimiento | M-06 carga diferida: JavaScript inicial de 102.5 a 91.6 KB (meta 70 KB no alcanzada) | — | 🟡 | `8da48e9` |
+| T-04 | Publicación | M-01 activar GitHub Pages · M-02 prueba de humo en la URL pública | — | 🟡 | depende de activar Pages |
+
+## Versión 1.1 (M-04)
+
+| ID | Elemento | Pts | Motivo | Primer paso acordado |
+|---|---|---|---|---|
+| T-05 | Integración de servicios reales | 8 | Requiere cuentas y credenciales de los proveedores. | Solicitar los accesos de prueba gratuitos (pasarela en modo de pruebas, cliente OAuth de Google, proyecto de Firebase). |
+| T-04 | Publicación en App Store y Google Play | 3 | Requiere cuentas de desarrollador y el SDK nativo. | Empaquetar con Capacitor una vez abiertas las cuentas. |
+| T-03 | Imagen principal en menos de 1.5 s en 3G | 2 | El JavaScript de React y las fotos externas limitan el tiempo. | Servir las fotos desde un CDN propio. |
+| T-09 | Fotos reales del catálogo (M-12) | 2 | Las imágenes de muestra no corresponden a los productos. | Tomar o conseguir las fotos de los 24 productos. |
 
 ## Pruebas
 
 `npm test` ejecuta [tests/sprint1.test.js](tests/sprint1.test.js) (7 pruebas),
 [tests/sprint2.test.js](tests/sprint2.test.js) (10 pruebas), [tests/sprint3.test.js](tests/sprint3.test.js) (14 pruebas)
-y [tests/sprint4.test.js](tests/sprint4.test.js) (6 pruebas). `npm run e2e` ejecuta la regresión de extremo a extremo (19 recorridos).
+y [tests/sprint4.test.js](tests/sprint4.test.js) (8 pruebas): 39 en total. `npm run e2e` ejecuta la regresión de extremo a extremo
+(19 recorridos, también en GitHub Actions) y `npm run a11y` la revisión de accesibilidad de 16 pantallas.
