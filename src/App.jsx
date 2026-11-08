@@ -1,28 +1,33 @@
+// M-06 Cada pantalla se descarga solo cuando se visita (React.lazy); el catálogo, que es la portada, va en el archivo inicial.
+import { lazy, Suspense } from 'react'
 import { Link, Route, Routes } from 'react-router-dom'
 import Header from './components/Header'
 import RequireAuth from './components/RequireAuth'
-import Catalog from './pages/Catalog'
-import ProductDetail from './pages/ProductDetail'
-import Cart from './pages/Cart'
-import Checkout from './pages/Checkout'
-import OrderConfirmation from './pages/OrderConfirmation'
-import Login from './pages/Login'
-import Register from './pages/Register'
-import Search from './pages/Search'
-import Orders from './pages/Orders'
-import Profile from './pages/Profile'
-import Wishlist from './pages/Wishlist'
-import Notifications from './pages/Notifications'
-import Support from './pages/Support'
-import Admin from './pages/Admin'
 import RequireAdmin from './components/RequireAdmin'
-import { Privacy, Terms } from './pages/Legal'
+import Catalog from './pages/Catalog'
+
+const ProductDetail = lazy(() => import('./pages/ProductDetail'))
+const Cart = lazy(() => import('./pages/Cart'))
+const Checkout = lazy(() => import('./pages/Checkout'))
+const OrderConfirmation = lazy(() => import('./pages/OrderConfirmation'))
+const Login = lazy(() => import('./pages/Login'))
+const Register = lazy(() => import('./pages/Register'))
+const Search = lazy(() => import('./pages/Search'))
+const Orders = lazy(() => import('./pages/Orders'))
+const Profile = lazy(() => import('./pages/Profile'))
+const Wishlist = lazy(() => import('./pages/Wishlist'))
+const Notifications = lazy(() => import('./pages/Notifications'))
+const Support = lazy(() => import('./pages/Support'))
+const Admin = lazy(() => import('./pages/Admin'))
+const Privacy = lazy(() => import('./pages/Legal').then((m) => ({ default: m.Privacy })))
+const Terms = lazy(() => import('./pages/Legal').then((m) => ({ default: m.Terms })))
 
 export default function App() {
   return (
     <>
       <Header />
       <main>
+        <Suspense fallback={<p className="container muted">Cargando…</p>}>
         <Routes>
           <Route path="/" element={<Catalog />} />
           <Route path="/producto/:id" element={<ProductDetail />} />
@@ -43,9 +48,10 @@ export default function App() {
           <Route path="/terminos" element={<Terms />} />
           <Route path="*" element={<p className="container">Página no encontrada.</p>} />
         </Routes>
+        </Suspense>
       </main>
       <footer className="footer container muted small">
-        Tienda Emergente · Proyecto II · Avance de desarrollo con React · <Link to="/soporte">Soporte</Link> · <Link to="/privacidad">Aviso de privacidad</Link> · <Link to="/terminos">Términos de uso</Link>
+        Tienda Emergente 1.0 · Proyecto II · <Link to="/soporte">Soporte</Link> · <Link to="/privacidad">Aviso de privacidad</Link> · <Link to="/terminos">Términos de uso</Link>
       </footer>
     </>
   )
