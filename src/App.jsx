@@ -1,12 +1,13 @@
-// M-06 Cada pantalla se descarga solo cuando se visita (React.lazy); el catálogo, que es la portada, va en el archivo inicial.
+// M-06 Cada pantalla se descarga solo cuando se visita (React.lazy). El catálogo y el detalle de producto van en el
+// archivo inicial: son las páginas a las que se llega desde enlaces y, cargadas aparte, retrasaban la imagen en 3G.
 import { lazy, Suspense } from 'react'
 import { Link, Route, Routes } from 'react-router-dom'
 import Header from './components/Header'
 import RequireAuth from './components/RequireAuth'
 import RequireAdmin from './components/RequireAdmin'
 import Catalog from './pages/Catalog'
+import ProductDetail from './pages/ProductDetail'
 
-const ProductDetail = lazy(() => import('./pages/ProductDetail'))
 const Cart = lazy(() => import('./pages/Cart'))
 const Checkout = lazy(() => import('./pages/Checkout'))
 const OrderConfirmation = lazy(() => import('./pages/OrderConfirmation'))
