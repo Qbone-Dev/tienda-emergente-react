@@ -1,7 +1,7 @@
 {
   "name": "tienda-emergente-react",
   "private": true,
-  "version": "1.0.0-rc.1",
+  "version": "1.0.0",
   "type": "module",
   "description": "App Tienda Emergente desarrollada con React en 4 sprints (Proyecto II, UDG Virtual)",
   "scripts": {
@@ -23,5 +23,12 @@
     "playwright-core": "^1.64.1",
     "vite": "^8.3.3",
     "vitest": "^5.0.3"
+  },
+  "license": "MIT",
+  "author": "Jesús Ismael Baltazar Berumen",
+  "homepage": "https://qbone-dev.github.io/tienda-emergente-react/",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Qbone-Dev/tienda-emergente-react.git"
   }
 }

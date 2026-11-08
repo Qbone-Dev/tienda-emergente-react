@@ -1,11 +1,12 @@
 # Tienda Emergente · React
 
-Avance de desarrollo de la app **Tienda Emergente** (Proyecto II, UDG Virtual) construido con React 19 y Vite.
-Versión **1.0** al cierre de los cuatro sprints del proyecto (estado al 29/10/2026 en [BACKLOG.md](BACKLOG.md)).
+App **Tienda Emergente** (Proyecto II, UDG Virtual) construida con React 19 y Vite.
+Versión **1.0.0**: los cuatro sprints del proyecto más las modificaciones de la reunión de revisión (M-01 a M-12).
 
 - **App funcionando:** https://Qbone-Dev.github.io/tienda-emergente-react/
+- **Manual de uso:** [docs/MANUAL.md](docs/MANUAL.md)
 - **Backlog y trazabilidad:** [BACKLOG.md](BACKLOG.md)
-- **Versiones por sprint:** etiquetas [`sprint-1`](../../tree/sprint-1), [`sprint-2`](../../tree/sprint-2) , [`sprint-3`](../../tree/sprint-3) y [`sprint-4`](../../tree/sprint-4)
+- **Versiones por sprint:** etiquetas [`sprint-1`](../../tree/sprint-1), [`sprint-2`](../../tree/sprint-2), [`sprint-3`](../../tree/sprint-3) y [`sprint-4`](../../tree/sprint-4)
 
 ## Qué incluye
 
@@ -31,6 +32,9 @@ Versión **1.0** al cierre de los cuatro sprints del proyecto (estado al 29/10/2
 | 4 | US-14 | Panel de inventario: alta, edición, baja y existencias en vivo (solo administradores) | `#/admin` |
 | 4 | T-03 | Regresión de extremo a extremo y medición de rendimiento en 3G | `npm run e2e` |
 | 4 | T-04 | App instalable (manifiesto y service worker) y registro de errores | menú del navegador → Instalar |
+| Rev. | M-05 | Aviso de privacidad y términos de uso; borrar los datos del navegador | `#/privacidad`, `#/terminos` |
+| Rev. | M-06 | Pantallas con carga diferida (React.lazy) | — |
+| Rev. | M-11 | 16 pantallas sin problemas de accesibilidad (axe-core, WCAG 2.2 AA) | `npm run a11y` |
 
 Tarjeta de prueba: `4242 4242 4242 4242`, cualquier fecha futura y CVV `123`.
 La tarjeta `4000 0000 0000 0002` simula un pago rechazado.
@@ -48,10 +52,11 @@ Requiere Node.js 20 o superior.
 ```bash
 npm install
 npm run dev      # http://localhost:5173
-npm test         # 37 pruebas (Vitest)
+npm test         # 39 pruebas (Vitest)
 npm run build    # genera dist/
 npm run preview  # sirve dist/ en http://localhost:4173
-npm run e2e      # regresión en navegador (con preview encendido; usa Edge, BROWSER=chrome para Chrome)
+npm run e2e      # 19 recorridos en navegador (con preview encendido; usa Edge, BROWSER=chrome para Chrome)
+npm run a11y     # revisión de accesibilidad de las 16 pantallas (con preview encendido)
 ```
 
 ## Estructura
@@ -59,14 +64,22 @@ npm run e2e      # regresión en navegador (con preview encendido; usa Edge, BRO
 ```
 src/
   data/        catálogo de ejemplo
-  services/    lógica sin interfaz: api, auth, cart, payment, orders, search, reviews
-  context/     estado global (sesión y carrito)
+  services/    lógica sin interfaz (16 servicios: api, auth, cart, payment, orders, inventory…)
+  context/     estado global (sesión, carrito, favoritos y avisos)
   components/  piezas reutilizables (encabezado, tarjeta, galería, imagen diferida…)
-  pages/       una pantalla por ruta
-tests/         pruebas de cada sprint
+  pages/       una pantalla por ruta (15 pantallas)
+tests/         pruebas unitarias de cada sprint
+e2e/           regresión, rendimiento y accesibilidad en navegador
+docs/          manual de uso
 ```
 
 ## Publicación
 
-Cada `push` a `main` ejecuta las pruebas, genera el build y lo publica en GitHub Pages
-(`.github/workflows/deploy.yml`). En el repositorio: *Settings → Pages → Source: GitHub Actions*.
+Cada `push` a `main` ejecuta las pruebas unitarias y la regresión en Chrome, genera el build y lo publica en
+GitHub Pages (`.github/workflows/deploy.yml`). En el repositorio: *Settings → Pages → Source: GitHub Actions*.
+Para habilitar el panel de inventario en la versión publicada, guarda la huella de la contraseña como secreto
+`ADMIN_PASSWORD_SHA256` (*Settings → Secrets and variables → Actions*).
+
+## Licencia
+
+[MIT](LICENSE) © 2026 Jesús Ismael Baltazar Berumen
