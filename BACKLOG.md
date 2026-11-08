@@ -60,7 +60,7 @@ Estados: ✅ terminado · 🟡 parcial · ⛔ no iniciado · 🔜 planeado.
 | T-06 | Endurecimiento para la liberación | M-03 contraseña fuera del código · M-05 privacidad y términos · M-07 regresión en Actions · M-08 dependencias | 3 | ✅ | `d40a6bf` `2545e7e` `042b314` `1855821` |
 | T-07 | Documentación de liberación | M-09 licencia y versión 1.0.0 · M-10 manual de uso | 2 | ✅ | `8f533e5` · manual en [docs/MANUAL.md](docs/MANUAL.md) |
 | T-08 | Accesibilidad automatizada | M-11 axe-core en 16 pantallas: 1 problema grave encontrado y corregido | 1 | ✅ | `d249593` |
-| T-03 | Pruebas de regresión y rendimiento | M-06 carga diferida: JavaScript inicial de 102.5 a 91.6 KB (meta 70 KB no alcanzada) | — | 🟡 | `8da48e9` |
+| T-03 | Pruebas de regresión y rendimiento | M-06 carga diferida: JavaScript inicial de 102.5 a 92.0 KB e imagen en 3G de 4.2 a 4.0 s (metas de 70 KB y 1.5 s no alcanzadas) | — | 🟡 | `8da48e9` `8731913` |
 | T-04 | Publicación | M-01 activar GitHub Pages · M-02 prueba de humo en la URL pública | — | 🟡 | depende de activar Pages |
 
 ## Versión 1.1 (M-04)
