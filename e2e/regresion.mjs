@@ -4,8 +4,19 @@
 //   npm run build && npm run preview      (en otra terminal)
 //   npm run e2e                           (usa Edge; BROWSER=chrome para Google Chrome)
 //
-// Variables: BASE (por defecto http://localhost:4173/), BROWSER (msedge | chrome).
+// Variables: BASE (por defecto http://localhost:4173/), BROWSER (msedge | chrome),
+// E2E_ADMIN_PASSWORD (se lee también de .env.local). Sin contraseña se comprueba que el panel esté cerrado.
+import { existsSync, readFileSync } from 'node:fs'
 import { chromium } from 'playwright-core'
+
+if (existsSync('.env.local')) {
+  for (const line of readFileSync('.env.local', 'utf8').split(/?
+/)) {
+    const m = /^([A-Z0-9_]+)=(.*)$/.exec(line.trim())
+    if (m && process.env[m[1]] === undefined) process.env[m[1]] = m[2]
+  }
+}
+const ADMIN_PASSWORD = process.env.E2E_ADMIN_PASSWORD
 
 const BASE = process.env.BASE ?? 'http://localhost:4173/'
 const browser = await chromium.launch({ channel: process.env.BROWSER ?? 'msedge' })
@@ -174,12 +185,16 @@ await check('US-14', 'Inventario: acceso restringido', async () => {
   await page.getByText('Acceso restringido').waitFor()
   return 'un cliente no entra al panel'
 })
-await check('US-14', 'Inventario: existencias en vivo', async () => {
+await check('US-14', ADMIN_PASSWORD ? 'Inventario: existencias en vivo' : 'M-03: panel cerrado sin contraseña configurada', async () => {
   await page.evaluate(() => localStorage.removeItem('te.session'))
   await go('#/login')
   await page.getByLabel('Correo').fill('admin@tiendaemergente.mx')
-  await page.getByLabel('Contraseña').fill('Admin2026')
+  await page.getByLabel('Contraseña').fill(ADMIN_PASSWORD ?? 'cualquier-clave')
   await page.getByRole('button', { name: 'Entrar' }).click()
+  if (!ADMIN_PASSWORD) {
+    await page.getByText('no está habilitado').waitFor()
+    return 'sin huella configurada, el acceso de administración está desactivado'
+  }
   await go('#/admin')
   await page.getByLabel('Existencias de Tenis urbanos Classic').fill('0')
   await page.getByRole('button', { name: 'Guardar' }).first().click()

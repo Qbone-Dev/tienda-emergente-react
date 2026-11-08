@@ -34,7 +34,8 @@ Versión **1.0** al cierre de los cuatro sprints del proyecto (estado al 29/10/2
 
 Tarjeta de prueba: `4242 4242 4242 4242`, cualquier fecha futura y CVV `123`.
 La tarjeta `4000 0000 0000 0002` simula un pago rechazado.
-Cuenta de administración de demostración: `admin@tiendaemergente.mx` / `Admin2026`.
+Cuenta de administración: `admin@tiendaemergente.mx`. La contraseña no está en el repositorio (M-03): se configura
+su huella en `.env.local` (ver [.env.example](.env.example)); sin ella el panel de inventario queda cerrado.
 
 > Esta versión no tiene backend: los datos se guardan en el navegador (`localStorage`) y la API, el
 > inicio de sesión social, la pasarela, el correo, el envío push desde servidor y los asesores del chat están simulados en `src/services/`. Su integración

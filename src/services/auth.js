@@ -25,19 +25,19 @@ const randomHex = (n = 16) =>
 const getUsers = () => load(USERS_KEY, [])
 const publicUser = ({ id, name, email, provider, role }) => ({ id, name, email, provider, role: role ?? 'cliente' })
 
-// US-14: cuenta de administrador de demostración (en producción los roles los asigna el backend, T-05).
+// US-14 Cuenta de administración. M-03: la contraseña ya no vive en el código ni en el README;
+// solo se configura su huella SHA-256 en la variable de entorno VITE_ADMIN_PASSWORD_SHA256 al compilar.
+// Sin esa variable el acceso de administración queda desactivado. (En producción, el backend de T-05 asigna los roles.)
 export const ADMIN_EMAIL = 'admin@tiendaemergente.mx'
-export const ADMIN_DEMO_PASSWORD = 'Admin2026'
+export const ADMIN_PEPPER = 'te-admin:'
+export const adminPasswordHash = (password) => sha256(ADMIN_PEPPER + password)
+const configuredAdminHash = () => (import.meta.env?.VITE_ADMIN_PASSWORD_SHA256 ?? '').trim().toLowerCase()
+export const adminAccessEnabled = () => /^[0-9a-f]{64}$/.test(configuredAdminHash())
 
-async function ensureDemoAdmin() {
-  const users = getUsers()
-  if (users.some((u) => u.email === ADMIN_EMAIL)) return
-  const salt = randomHex()
-  users.push({
-    id: 'u-admin', name: 'Administración', email: ADMIN_EMAIL, provider: 'correo', role: 'admin',
-    salt, passwordHash: await sha256(salt + ADMIN_DEMO_PASSWORD), verified: true,
-  })
-  save(USERS_KEY, users)
+async function loginAdmin(password) {
+  if (!adminAccessEnabled()) throw new Error('El acceso de administración no está habilitado en esta versión.')
+  if ((await adminPasswordHash(password)) !== configuredAdminHash()) throw new Error('Correo o contraseña incorrectos.')
+  return { id: 'u-admin', name: 'Administración', email: ADMIN_EMAIL, provider: 'correo', role: 'admin' }
 }
 
 export async function register({ name, email, password }) {
@@ -47,7 +47,7 @@ export async function register({ name, email, password }) {
   const passwordError = validatePassword(password)
   if (passwordError) throw new Error(passwordError)
   const users = getUsers()
-  if (users.some((u) => u.email === email)) throw new Error('Ya existe una cuenta con ese correo.')
+  if (email === ADMIN_EMAIL || users.some((u) => u.email === email)) throw new Error('Ya existe una cuenta con ese correo.')
 
   const salt = randomHex()
   // Validación de correo: se "envía" un código de 6 dígitos (se muestra en pantalla).
@@ -77,7 +77,7 @@ export function verifyEmail(email, code) {
 }
 
 export async function login({ email, password }) {
-  if (email.trim().toLowerCase() === ADMIN_EMAIL) await ensureDemoAdmin()
+  if (email.trim().toLowerCase() === ADMIN_EMAIL) return loginAdmin(password)
   const user = getUsers().find((u) => u.email === email.trim().toLowerCase() && u.provider === 'correo')
   if (!user || user.passwordHash !== (await sha256(user.salt + password))) {
     throw new Error('Correo o contraseña incorrectos.')

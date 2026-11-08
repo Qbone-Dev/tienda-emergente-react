@@ -1,8 +1,10 @@
 // Pruebas del Sprint 4 (tareas de QA de US-14).
-import { beforeEach, describe, expect, it } from 'vitest'
+import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
 import { findProduct, getActiveProducts, getAllProducts, saveProduct, setActive, setStock, validateProduct } from '../src/services/inventory'
 import { getProduct, getProducts } from '../src/services/api'
-import { ADMIN_DEMO_PASSWORD, ADMIN_EMAIL, login, register, verifyEmail } from '../src/services/auth'
+import { ADMIN_EMAIL, adminAccessEnabled, adminPasswordHash, login, register, verifyEmail } from '../src/services/auth'
+
+afterEach(() => vi.unstubAllEnvs())
 
 beforeEach(() => {
   const data = new Map()
@@ -45,9 +47,19 @@ describe('US-14 Panel de administración de inventario', () => {
     expect(() => setStock('p03', -2)).toThrow()
   })
   it('solo la cuenta de administración tiene el rol admin', async () => {
-    const admin = await login({ email: ADMIN_EMAIL, password: ADMIN_DEMO_PASSWORD })
+    vi.stubEnv('VITE_ADMIN_PASSWORD_SHA256', await adminPasswordHash('clave-de-prueba-123'))
+    const admin = await login({ email: ADMIN_EMAIL, password: 'clave-de-prueba-123' })
     expect(admin.role).toBe('admin')
+    await expect(login({ email: ADMIN_EMAIL, password: 'otra-clave' })).rejects.toThrow()
     const { code } = await register({ name: 'Ana', email: 'ana@correo.mx', password: 'segura123' })
     expect(verifyEmail('ana@correo.mx', code).role).toBe('cliente')
+  })
+  it('M-03: sin huella configurada no hay acceso de administración', async () => {
+    vi.stubEnv('VITE_ADMIN_PASSWORD_SHA256', '')
+    expect(adminAccessEnabled()).toBe(false)
+    await expect(login({ email: ADMIN_EMAIL, password: 'cualquiera' })).rejects.toThrow(/no está habilitado/)
+  })
+  it('M-03: nadie puede registrarse con el correo de administración', async () => {
+    await expect(register({ name: 'X', email: ADMIN_EMAIL, password: 'segura123' })).rejects.toThrow()
   })
 })

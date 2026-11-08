@@ -2,3 +2,7 @@ node_modules
 dist
 .vite
 *.log
+
+# M-03: configuración local con la huella de la contraseña de administración (no se sube)
+.env.local
+.env.*.local
