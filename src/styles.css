@@ -227,6 +227,8 @@ input:focus, select:focus, textarea:focus, button:focus-visible, a:focus-visible
 .chat-status::before { content: ''; width: 10px; height: 10px; border-radius: 50%; background: #9aa3a0; }
 .chat-status.open::before { background: var(--ok); }
 .chat-layout { display: grid; grid-template-columns: 260px 1fr; gap: 16px; align-items: start; padding-bottom: 32px; }
+/* Los hijos de la cuadrícula pueden encogerse; si no, la fila de temas del chat ensancha la página en móvil. */
+.chat-layout > * { min-width: 0; }
 .chat-topics { display: flex; flex-direction: column; gap: 6px; }
 .chat-topics button { text-align: left; border: 1px solid var(--line); background: var(--surface); border-radius: 8px; padding: 10px 12px; min-height: 44px; }
 .chat-topics button.active { border-color: var(--brand); background: #e6f4ef; font-weight: 600; }
@@ -241,7 +243,7 @@ input:focus, select:focus, textarea:focus, button:focus-visible, a:focus-visible
 .chat-input { display: flex; gap: 8px; padding: 12px 16px; border-top: 1px solid var(--line); }
 .chat-input input { flex: 1; min-width: 0; }
 @media (max-width: 760px) {
-  .chat-layout { grid-template-columns: 1fr; }
+  .chat-layout { grid-template-columns: minmax(0, 1fr); }
   .chat-topics { flex-direction: row; overflow-x: auto; }
   .chat-topics button { white-space: nowrap; }
 }
