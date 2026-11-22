@@ -1,9 +1,11 @@
 # Tienda Emergente · React
 
 App **Tienda Emergente** (Proyecto II, UDG Virtual) construida con React 19 y Vite.
-Versión **1.0.0**: los cuatro sprints del proyecto más las modificaciones de la reunión de revisión (M-01 a M-12).
+Versión **1.0.0**: los cuatro sprints del proyecto más las modificaciones de la revisión (M-01 a M-13).
 
 - **App funcionando:** https://Qbone-Dev.github.io/tienda-emergente-react/
+- **Menú del proyecto (entrega final):** botón «Menú» de la app o `#/proyecto`: actividades del curso, sistema, código fuente y [reporte de modificaciones](public/proyecto/reporte-modificaciones.pdf)
+- **Código fuente comprimido:** [v1.0.0.zip](../../archive/refs/tags/v1.0.0.zip)
 - **Manual de uso:** [docs/MANUAL.md](docs/MANUAL.md)
 - **Backlog y trazabilidad:** [BACKLOG.md](BACKLOG.md)
 - **Versiones por sprint:** etiquetas [`sprint-1`](../../tree/sprint-1), [`sprint-2`](../../tree/sprint-2), [`sprint-3`](../../tree/sprint-3) y [`sprint-4`](../../tree/sprint-4)
@@ -34,7 +36,8 @@ Versión **1.0.0**: los cuatro sprints del proyecto más las modificaciones de l
 | 4 | T-04 | App instalable (manifiesto y service worker) y registro de errores | menú del navegador → Instalar |
 | Rev. | M-05 | Aviso de privacidad y términos de uso; borrar los datos del navegador | `#/privacidad`, `#/terminos` |
 | Rev. | M-06 | Pantallas con carga diferida (React.lazy) | — |
-| Rev. | M-11 | 16 pantallas sin problemas de accesibilidad (axe-core, WCAG 2.2 AA) | `npm run a11y` |
+| Rev. | M-11 | 18 pantallas sin problemas graves de accesibilidad (axe-core, WCAG 2.2 AA) | `npm run a11y` |
+| Rev. | M-13 | Menú del proyecto: actividades del curso en PDF, sistema, código y reporte | `#/proyecto` |
 
 Tarjeta de prueba: `4242 4242 4242 4242`, cualquier fecha futura y CVV `123`.
 La tarjeta `4000 0000 0000 0002` simula un pago rechazado.
@@ -55,8 +58,8 @@ npm run dev      # http://localhost:5173
 npm test         # 39 pruebas (Vitest)
 npm run build    # genera dist/
 npm run preview  # sirve dist/ en http://localhost:4173
-npm run e2e      # 19 recorridos en navegador (con preview encendido; usa Edge, BROWSER=chrome para Chrome)
-npm run a11y     # revisión de accesibilidad de las 16 pantallas (con preview encendido)
+npm run e2e      # 20 recorridos en navegador (con preview encendido; usa Edge, BROWSER=chrome para Chrome)
+npm run a11y     # revisión de accesibilidad de 18 pantallas (con preview encendido)
 ```
 
 ## Estructura
@@ -67,7 +70,7 @@ src/
   services/    lógica sin interfaz (16 servicios: api, auth, cart, payment, orders, inventory…)
   context/     estado global (sesión, carrito, favoritos y avisos)
   components/  piezas reutilizables (encabezado, tarjeta, galería, imagen diferida…)
-  pages/       una pantalla por ruta (15 pantallas)
+  pages/       una pantalla por ruta (16 pantallas)
 tests/         pruebas unitarias de cada sprint
 e2e/           regresión, rendimiento y accesibilidad en navegador
 docs/          manual de uso

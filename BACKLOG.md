@@ -1,7 +1,7 @@
 # Product Backlog y trazabilidad
 
-Backlog al 08/11/2026, después de la reunión de revisión: **25 elementos, 106 puntos, 587.5 h esperadas**.
-Terminados: **21 elementos, 90 puntos (85 %)**. Parciales: T-03 y T-04. Para la versión 1.1: T-05 y T-09.
+Backlog final al 22/11/2026 (versión 1.0.0): **26 elementos, 108 puntos, 591.5 h esperadas**.
+Terminados: **22 elementos, 92 puntos (85 %)**. Parciales: T-03 y T-04. Para la versión 1.1: T-05 y T-09.
 
 - Revisión de los Sprints 1 y 2: se agregó **T-05** (integración de servicios reales) para terminar lo que quedó simulado.
 - Revisión del Sprint 3: T-05 crece de 5 a 8 pts (20 h → 26 h) porque también incluye el envío push con FCM
@@ -60,6 +60,7 @@ Estados: ✅ terminado · 🟡 parcial · ⛔ no iniciado · 🔜 planeado.
 | T-06 | Endurecimiento para la liberación | M-03 contraseña fuera del código · M-05 privacidad y términos · M-07 regresión en Actions · M-08 dependencias | 3 | ✅ | `d40a6bf` `2545e7e` `042b314` `1855821` |
 | T-07 | Documentación de liberación | M-09 licencia y versión 1.0.0 · M-10 manual de uso | 2 | ✅ | `8f533e5` · manual en [docs/MANUAL.md](docs/MANUAL.md) |
 | T-08 | Accesibilidad automatizada | M-11 axe-core en 16 pantallas: 1 problema grave encontrado y corregido | 1 | ✅ | `d249593` |
+| T-10 | Menú del proyecto (entrega final) | M-13 botón «Menú» con actividades del curso, sistema, código fuente y reporte de modificaciones | 2 | ✅ | `06cf9be` |
 | T-03 | Pruebas de regresión y rendimiento | M-06 carga diferida: JavaScript inicial de 102.5 a 92.0 KB e imagen en 3G de 4.2 a 4.0 s (metas de 70 KB y 1.5 s no alcanzadas) | — | 🟡 | `8da48e9` `8731913` |
 | T-04 | Publicación | M-01 activar GitHub Pages · M-02 prueba de humo en la URL pública | — | 🟡 | depende de activar Pages |
 
@@ -77,4 +78,4 @@ Estados: ✅ terminado · 🟡 parcial · ⛔ no iniciado · 🔜 planeado.
 `npm test` ejecuta [tests/sprint1.test.js](tests/sprint1.test.js) (7 pruebas),
 [tests/sprint2.test.js](tests/sprint2.test.js) (10 pruebas), [tests/sprint3.test.js](tests/sprint3.test.js) (14 pruebas)
 y [tests/sprint4.test.js](tests/sprint4.test.js) (8 pruebas): 39 en total. `npm run e2e` ejecuta la regresión de extremo a extremo
-(19 recorridos, también en GitHub Actions) y `npm run a11y` la revisión de accesibilidad de 16 pantallas.
+(20 recorridos, también en GitHub Actions) y `npm run a11y` la revisión de accesibilidad de 18 pantallas.
