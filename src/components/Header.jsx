@@ -19,6 +19,13 @@ export default function Header() {
   return (
     <header className="header">
       <div className="container header-row">
+        {/* M-13 Botón de menú del proyecto (entrega final) */}
+        <Link to="/proyecto" className="menu-btn" aria-label="Menú del proyecto">
+          <svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true">
+            <path fill="currentColor" d="M3 6h18v2H3V6Zm0 5h18v2H3v-2Zm0 5h18v2H3v-2Z" />
+          </svg>
+          <span>Menú</span>
+        </Link>
         <Link to="/" className="logo">Tienda<span>Emergente</span></Link>
         {/* US-06 búsqueda disponible en todas las pantallas */}
         <form className="search" role="search" onSubmit={search}>

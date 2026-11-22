@@ -21,6 +21,7 @@ const Notifications = lazy(() => import('./pages/Notifications'))
 const Support = lazy(() => import('./pages/Support'))
 const Admin = lazy(() => import('./pages/Admin'))
 const Privacy = lazy(() => import('./pages/Legal').then((m) => ({ default: m.Privacy })))
+const ProjectMenu = lazy(() => import('./pages/ProjectMenu'))
 const Terms = lazy(() => import('./pages/Legal').then((m) => ({ default: m.Terms })))
 
 export default function App() {
@@ -45,6 +46,7 @@ export default function App() {
           <Route path="/pedido/:number" element={<OrderConfirmation />} />
           <Route path="/login" element={<Login />} />
           <Route path="/registro" element={<Register />} />
+          <Route path="/proyecto" element={<ProjectMenu />} />
           <Route path="/privacidad" element={<Privacy />} />
           <Route path="/terminos" element={<Terms />} />
           <Route path="*" element={<p className="container">Página no encontrada.</p>} />
@@ -52,7 +54,7 @@ export default function App() {
         </Suspense>
       </main>
       <footer className="footer container muted small">
-        Tienda Emergente 1.0 · Proyecto II · <Link to="/soporte">Soporte</Link> · <Link to="/privacidad">Aviso de privacidad</Link> · <Link to="/terminos">Términos de uso</Link>
+        Tienda Emergente 1.0 · Proyecto II · <Link to="/soporte">Soporte</Link> · <Link to="/privacidad">Aviso de privacidad</Link> · <Link to="/terminos">Términos de uso</Link> · <Link to="/proyecto">Menú del proyecto</Link>
       </footer>
     </>
   )

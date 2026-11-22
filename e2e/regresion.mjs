@@ -203,17 +203,30 @@ await check('US-14', ADMIN_PASSWORD ? 'Inventario: existencias en vivo' : 'M-03:
   await page.getByText('Agotado').waitFor()
   return `stock 0 visible en la tienda en ${Date.now() - start} ms`
 })
+await check('M-13', 'Menú del proyecto', async () => {
+  await go('#/')
+  await page.getByRole('link', { name: 'Menú del proyecto' }).first().click()
+  await page.getByRole('heading', { name: 'Menú del proyecto' }).waitFor()
+  const pdf = await page.locator('.act-list a').first().getAttribute('href')
+  const status = await page.evaluate(async (href) => (await fetch(href, { method: 'HEAD' })).status, pdf)
+  assert(status === 200, `el PDF de la primera actividad respondió ${status}`)
+  for (const name of ['Sistema implementado', 'Código fuente (comprimido)', 'Reporte de las modificaciones']) {
+    await page.getByRole('button', { name: new RegExp(name.replace(/[()]/g, '.')) }).click()
+    await page.getByRole('heading', { name }).first().waitFor()
+  }
+  return '4 secciones y PDF de actividades disponible'
+})
 await check('T-01', 'Vista móvil sin desplazamiento horizontal', async () => {
   await page.setViewportSize({ width: 375, height: 812 })
   const bad = []
-  for (const h of ['#/', '#/carrito', '#/buscar?q=tenis', '#/admin', '#/perfil', '#/soporte']) {
+  for (const h of ['#/', '#/carrito', '#/buscar?q=tenis', '#/admin', '#/perfil', '#/soporte', '#/proyecto']) {
     await go(h)
     await page.waitForTimeout(300)
     const [sw, w] = await page.evaluate(() => [document.documentElement.scrollWidth, innerWidth])
     if (sw > w + 2) bad.push(`${h} (${sw}px)`)
   }
   assert(bad.length === 0, 'desborde en ' + bad.join(', '))
-  return '6 pantallas a 375 px sin desborde'
+  return '7 pantallas a 375 px sin desborde'
 })
 await check('T-03', 'Sin errores en la consola', async () => {
   assert(consoleErrors.length === 0, consoleErrors.join(' | '))

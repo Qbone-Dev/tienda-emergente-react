@@ -31,6 +31,8 @@ const SCREENS = [
   ['Inventario', '#/admin', admin],
   ['Aviso de privacidad', '#/privacidad', null],
   ['Términos de uso', '#/terminos', null],
+  ['Menú del proyecto', '#/proyecto', null],
+  ['Menú: reporte de modificaciones', '#/proyecto?seccion=reporte', null],
 ]
 
 const browser = await chromium.launch({ channel: process.env.BROWSER ?? 'msedge' })
